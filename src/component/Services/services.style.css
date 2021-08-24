@@ -1,0 +1,45 @@
+.service {
+  padding: 80px 0;
+  background-color: tomato;
+}
+
+.serviceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imageCard {
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  border: 30px solid blue;
+  box-shadow: inset 2px 3px 5px 3px rgb(75 74 74),
+    4px 4px 6px rgb(44 44 44 / 76%);
+}
+
+.leftService,
+.rightService {
+  width: 45%;
+}
+
+.leftService img {
+  width: 100%;
+}
+
+.serviceHeader::before {
+  content: ' ';
+  height: 3px;
+  display: block;
+
+  width: 160px;
+  margin-bottom: 10px;
+  background-color: blue;
+}
+
+h2.serviceHeader {
+  color: rgb(255, 255, 255);
+}
+
+.servicePara {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,46 @@
+.about {
+  padding-bottom: 90px;
+}
+
+.aboutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.rightAbout,
+.leftAbout {
+  width: 40%;
+}
+.aboutImg {
+  width: 100%;
+}
+
+.divHeader {
+  font-size: 3.1rem;
+  font-weight: 400;
+  margin-left: 18px;
+}
+
+.aboutHeader,
+.serviceHeader {
+  font-size: 4.2rem;
+  line-height: 45px;
+  margin: 0 0 10px;
+  color: #0e20d0;
+}
+
+.aboutHeader::before {
+  content: ' ';
+  display: block;
+  width: 128px;
+  height: 3px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  background-color: tomato;
+}
+
+.aboutPara,
+.servicePara {
+  font-size: 1.7rem;
+  width: 90%;
+}
