@@ -11,10 +11,10 @@
 
 .imageCard {
   padding: 30px;
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(255, 255, 255);
   border: 30px solid blue;
-  box-shadow: inset 2px 3px 5px 3px rgb(75 74 74 / 8),
-    4px 4px 6px rgba(0, 0, 0, 0.877);
+  box-shadow: inset 2px 3px 5px 3px rgb(75 74 74),
+    4px 4px 6px rgb(44 44 44 / 76%);
 }
 
 .leftService,

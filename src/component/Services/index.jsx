@@ -20,7 +20,7 @@ const Services = () => {
             aperiam laboriosam dolores, sed asperiores in, quae expedita eius
             veniam facilis incidunt saepe?
           </p>
-          <Button>Register Now</Button>
+          <Button ring>Register Now</Button>
         </div>
       </div>
     </section>

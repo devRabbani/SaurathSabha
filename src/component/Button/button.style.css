@@ -1,0 +1,21 @@
+.btn {
+  border: none;
+  padding: 10px 30px;
+  background-color: transparent;
+}
+
+.btnGetstarted,
+.btnRing {
+  background-color: blue;
+  color: white;
+  border-radius: 7px;
+  box-shadow: 1px 3px 7px rgba(110, 110, 110, 0.849);
+}
+
+.btnRing {
+  border-radius: 30px;
+  font-size: 2.1rem;
+  padding: 12px 44px;
+  margin-top: 7px;
+  box-shadow: 3px 3px 7px #1d1d1da8;
+}

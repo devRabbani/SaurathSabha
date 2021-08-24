@@ -11,7 +11,7 @@ const HeroSection = () => {
         <img src={heroimage} alt='heroImage' />
       </div>
       <div className='rightSide'>
-        <p className='headerTag'>Some header tag goes here</p>
+        <p className='headerTag'>Some header tag goes here for tagline</p>
         <h3 className='formHeader'>Find Your Soulmate</h3>
         <form className='formCard'>
           <div className='form-group'>
@@ -67,7 +67,7 @@ const HeroSection = () => {
             />
           </div>
 
-          <Button>Register</Button>
+          <Button>Get Started</Button>
         </form>
       </div>
       <div style={{ backgroundImage: `url(${bg})` }} className='bgHero'></div>
