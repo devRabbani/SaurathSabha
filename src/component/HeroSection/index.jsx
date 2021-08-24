@@ -2,7 +2,7 @@ import React from 'react'
 import './heroSection.style.css'
 import heroimage from '../../assets/herosvg.svg'
 import Button from '../Button'
-import bg from '../../assets/bg-abstract.svg'
+import bg from '../../assets/bg-abstract1.svg'
 
 const HeroSection = () => {
   return (

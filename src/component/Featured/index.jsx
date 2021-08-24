@@ -6,7 +6,7 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import data from './data'
 import './featured.style.css'
-import featureBg from '../../assets/featured.svg'
+import featureBg from '../../assets/untitled.svg'
 SwiperCore.use([Navigation, Pagination, Autoplay])
 const Featured = () => {
   return (
