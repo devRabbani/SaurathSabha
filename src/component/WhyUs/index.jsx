@@ -3,7 +3,6 @@ import './whyus.style.css'
 import whyusimg1 from '../../assets/herosvg.svg'
 import whyusimg2 from '../../assets/wedding.svg'
 import whyusimg3 from '../../assets/eating.svg'
-
 const WhyUs = () => {
   return (
     <section className='whyus container'>

@@ -3,13 +3,11 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
 }
 
 html {
   font-size: 62.5%;
-}
-body {
-  font-family: 'Nunito', sans-serif;
 }
 
 a {
@@ -25,4 +23,15 @@ ul {
   max-width: 1500px;
   width: 80%;
   margin: 0 auto;
+}
+
+.footer {
+  background-color: rgb(0, 0, 0);
+  padding: 10px 0;
+}
+.footer p {
+  text-align: center;
+  font-size: 1.6rem;
+  color: rgb(201, 201, 201);
+  font-weight: 500;
 }
