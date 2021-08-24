@@ -1,0 +1,40 @@
+.about {
+  padding-bottom: 80px;
+}
+
+.aboutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.rightAbout,
+.leftAbout {
+  width: 40%;
+}
+.rightAbout img {
+  width: 100%;
+}
+
+.divHeader {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.divHeader::after {
+  content: ' ';
+  display: block;
+  width: 90px;
+  height: 2px;
+  background-color: tomato;
+}
+
+.aboutHeader {
+  font-size: 3.7rem;
+  line-height: 40px;
+  margin: 10px 0;
+}
+
+.leftAbout p {
+  font-size: 1.6rem;
+  width: 90%;
+}

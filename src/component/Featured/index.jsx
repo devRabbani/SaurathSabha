@@ -6,11 +6,14 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import data from './data'
 import './featured.style.css'
-import bg from '../../assets/untitled.svg'
+import featureBg from '../../assets/featured.svg'
 SwiperCore.use([Navigation, Pagination, Autoplay])
 const Featured = () => {
   return (
-    <div style={{ backgroundImage: `url(${bg})` }} className='featured'>
+    <section
+      style={{ backgroundImage: `url(${featureBg})` }}
+      className='featured'
+    >
       <div className='container'>
         <h3 className='sectionHeading'>Featured</h3>
         <p className='featuredPara'>
@@ -40,7 +43,7 @@ const Featured = () => {
           </Swiper>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

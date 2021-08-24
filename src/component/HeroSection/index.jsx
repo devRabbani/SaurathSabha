@@ -6,7 +6,7 @@ import bg from '../../assets/bg-abstract.svg'
 
 const HeroSection = () => {
   return (
-    <div className='heroSection container'>
+    <section className='heroSection container'>
       <div className='leftSide'>
         <img src={heroimage} alt='heroImage' />
       </div>
@@ -71,7 +71,7 @@ const HeroSection = () => {
         </form>
       </div>
       <div style={{ backgroundImage: `url(${bg})` }} className='bgHero'></div>
-    </div>
+    </section>
   )
 }
 
