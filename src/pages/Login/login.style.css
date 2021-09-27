@@ -1,0 +1,45 @@
+.loginH1 {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.login {
+  background-color: rgb(221, 221, 221);
+}
+
+.loginContainer {
+  min-height: 95vh;
+}
+
+.loginRight {
+  width: 40%;
+}
+
+.loginLeft {
+  width: 35%;
+}
+
+.loginLeft form {
+  border: 2px solid grey;
+  background-color: white;
+  border-radius: 4px;
+  padding: 30px;
+}
+
+.formBottom {
+  border-radius: 4px;
+  background-color: white;
+  padding: 10px;
+  border: 2px solid grey;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.formBottom p {
+  font-size: 1.4rem;
+}
+
+.formBottom a {
+  color: blue;
+}

@@ -35,3 +35,13 @@ ul {
   color: rgb(201, 201, 201);
   font-weight: 500;
 }
+
+.flexContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+img {
+  width: 100%;
+}
