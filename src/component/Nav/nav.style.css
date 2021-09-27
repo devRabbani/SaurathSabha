@@ -37,6 +37,7 @@ div.logo {
   font-weight: bold;
   font-size: 3rem;
   padding: 0;
+  display: flex;
 }
 
 .btnNav {
@@ -46,6 +47,6 @@ div.logo {
   border-radius: 27px;
 }
 
-/* .logo img {
-  width: 100px;
-} */
+.logo img {
+  width: 200px;
+}

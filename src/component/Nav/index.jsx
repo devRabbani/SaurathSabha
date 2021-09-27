@@ -1,17 +1,16 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './nav.style.css'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/Asset 1@2x.png'
 
 const Nav = () => {
   return (
     <nav>
       <div className='container navContainer'>
         <div className='logo'>
-          {/* <a href='/'>
-            <img src={logo} alt='Logo' />
-          </a> */}
-          <NavLink to='/'>SaurathSabha</NavLink>
+          <img src={logo} alt='Logo' />
+
+          {/* <NavLink to='/'>SaurathSabha</NavLink> */}
         </div>
         <ul className='nav'>
           <li>
