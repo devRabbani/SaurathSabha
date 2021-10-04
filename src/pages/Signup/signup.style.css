@@ -1,0 +1,20 @@
+.formHorizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.formHorizontal select {
+  padding: 10px;
+}
+
+.formHorizontal .form-group:nth-child(2) {
+  width: 45%;
+}
+
+.formHorizontal.triple .form-group {
+  width: 35%;
+}
+.formHorizontal.triple .form-group:nth-child(1) {
+  width: 24%;
+}

@@ -2,13 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
+import FirebaseContext from './context/firebase'
+import { firebaseApp } from './lib/firebase'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <FirebaseContext.Provider value={{ firebaseApp }}>
+        <App />
+      </FirebaseContext.Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

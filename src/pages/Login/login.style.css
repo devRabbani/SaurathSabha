@@ -3,7 +3,8 @@
   text-align: center;
 }
 
-.login {
+.login,
+.signUp {
   background-color: rgb(221, 221, 221);
 }
 
@@ -19,8 +20,9 @@
   width: 35%;
 }
 
-.loginLeft form {
-  border: 2px solid grey;
+.loginLeft form,
+.signUp form {
+  border: 1px solid gray;
   background-color: white;
   border-radius: 4px;
   padding: 30px;
@@ -30,7 +32,7 @@
   border-radius: 4px;
   background-color: white;
   padding: 10px;
-  border: 2px solid grey;
+  border: 1px solid gray;
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -42,4 +44,26 @@
 
 .formBottom a {
   color: blue;
+  font-weight: bold;
+}
+
+.errorMsg {
+  color: red;
+  margin: 20px auto;
+}
+
+.signInBtn {
+  /* display: block; */
+  width: 100%;
+  cursor: pointer;
+  margin-top: 7px;
+  font-size: 1.5rem;
+  background-color: blue;
+  padding: 7px 20px;
+  color: white;
+  border: none;
+}
+
+.signInBtn.disabled {
+  opacity: 0.5;
 }

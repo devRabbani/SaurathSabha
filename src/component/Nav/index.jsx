@@ -14,39 +14,35 @@ const Nav = () => {
         </div>
         <ul className='nav'>
           <li>
-            <NavLink
-              className='nav-item'
-              activeClassName='bottomBorder'
-              to='/create'
-            >
-              About
+            <NavLink className='nav-item' activeClassName='bottomBorder' to='/'>
+              Home
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/about'
+              to='/profile'
             >
-              Featured
+              Profile
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/contact'
+              to='/search'
             >
-              Contact
+              Search
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/contact'
+              to='/dashboard'
             >
-              Services
+              Dashboard
             </NavLink>
           </li>
         </ul>
