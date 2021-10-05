@@ -6,6 +6,7 @@ import Footer from './component/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Search from './pages/Search'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/search' component={Search} />
+        <Route exact path='/profile' component={Profile} />
       </Switch>
       <Footer />
     </>

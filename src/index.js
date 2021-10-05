@@ -4,12 +4,12 @@ import './index.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import FirebaseContext from './context/firebase'
-import { firebaseApp } from './lib/firebase'
+import { firebaseApp, storage } from './lib/firebase'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <FirebaseContext.Provider value={{ firebaseApp }}>
+      <FirebaseContext.Provider value={{ firebaseApp, storage }}>
         <App />
       </FirebaseContext.Provider>
     </BrowserRouter>

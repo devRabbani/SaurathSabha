@@ -1,55 +1,151 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './signup.style.css'
 import img from '../../assets/wedding.svg'
 import { Link, useHistory } from 'react-router-dom'
 import FirebaseContext from '../../context/firebase'
+import { MdModeEdit } from 'react-icons/md'
+import { isUserExist } from '../../utils/firebase'
 
 const Signup = () => {
   const history = useHistory()
-  const { firebaseApp } = useContext(FirebaseContext)
+  const { firebaseApp, storage } = useContext(FirebaseContext)
+  const uploadRef = useRef()
 
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [city, setCity] = useState('')
-  const [age, setAge] = useState('')
-  const [employement, setEmployement] = useState('Employement')
-  const [profileFor, setProfileFor] = useState('Profile')
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    city: '',
+    age: '',
+    employement: '',
+    profileFor: '',
+    gender: '',
+    password: '',
+  })
+  const { name, email, city, age, employement, profileFor, gender, password } =
+    data
 
-  const [password, setPassword] = useState('')
+  const [previewUrl, setPreviewUrl] = useState('male.png')
+  const [file, setFile] = useState(null)
   const [error, setError] = useState('')
   const isInvalid = password === '' || email === ''
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      }
+    })
+  }
+
   const handleSignup = async (e) => {
     e.preventDefault()
-    try {
-      const createdUser = await firebaseApp
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-      //Firestore user collection
-      await firebaseApp.firestore().collection('users').add({
-        userId: createdUser.user.uid,
-        name,
-        city,
-        age,
-        employement,
-        profileFor,
-        email: email.toLowerCase(),
-        dateCreated: Date.now(),
-      })
+    const duplicate = await isUserExist(email)
+    if (!duplicate) {
+      try {
+        const createdUser = await firebaseApp
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+        //image upload
+        if (file) {
+          const uploadTask = storage
+            .ref(`${createdUser.user.uid}/${file.name}`)
+            .put(file)
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              let progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              console.log('Upload is ' + progress + '% done')
+            },
+            (error) => {
+              console.log(error)
+            },
+            () => {
+              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                firebaseApp.firestore().collection('users').add({
+                  userId: createdUser.user.uid,
+                  name,
+                  city,
+                  age,
+                  employement,
+                  profileFor,
+                  profileUrl: downloadURL,
+                  email: email.toLowerCase(),
+                  dateCreated: Date.now(),
+                })
+              })
+            }
+          )
+        }
 
-      history.push('/search')
-    } catch (error) {
-      setEmail('')
-      setPassword('')
-      setEmployement('')
-      setProfileFor('')
-      setAge('')
-      setError(error.message)
+        //Firestore user collection
+        if (!file) {
+          await firebaseApp
+            .firestore()
+            .collection('users')
+            .add({
+              userId: createdUser.user.uid,
+              name,
+              city,
+              age,
+              gender,
+              employement,
+              profileFor,
+              profileUrl: `${gender}.png`,
+              email: email.toLowerCase(),
+              dateCreated: Date.now(),
+            })
+        }
+
+        history.push('/profile')
+      } catch (error) {
+        console.log(error.name)
+        setData({
+          name: '',
+          email: '',
+          city: '',
+          age: '',
+          employement: '',
+          profileFor: '',
+          gender: '',
+          password: '',
+        })
+        setPreviewUrl('male.png')
+        setFile(null)
+        setError(error.message)
+      }
+    } else {
+      setError('The username already registered , please try other.')
+    }
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    uploadRef.current.click()
+  }
+  const handleFile = async (e) => {
+    if (e.target.files) {
+      setFile(e.target.files[0])
     }
   }
 
   useEffect(() => {
     document.title = 'SignUp - SaurathSabha'
   }, [])
+
+  useEffect(() => {
+    if (!file) {
+      return
+    }
+    const fileReader = new FileReader()
+    fileReader.onload = () => {
+      setPreviewUrl(fileReader.result)
+    }
+    fileReader.readAsDataURL(file)
+  }, [file])
 
   return (
     <div className='signUp'>
@@ -59,18 +155,44 @@ const Signup = () => {
           <div>
             <form onSubmit={handleSignup}>
               {error && <p className='errorMsg'>{error}</p>}
+              <div className='profilePic'>
+                <img src={previewUrl} alt='profile pic' />
+                <input
+                  type='file'
+                  name='image'
+                  ref={uploadRef}
+                  onChange={handleFile}
+                  accept='image/*'
+                  placeholder='Choose a profile pic'
+                  hidden='hidden'
+                />
+                <button onClick={handleClick}>Change Image</button>
+              </div>
 
+              <div className='form-group'>
+                <input
+                  type='text'
+                  name='name'
+                  placeholder='Enter Your Name'
+                  required
+                  className='form-control'
+                  value={name}
+                  onChange={handleChange}
+                />
+              </div>
               <div className='formHorizontal'>
                 <div className='form-group'>
-                  <input
-                    type='text'
-                    name='name'
-                    placeholder='Enter Your Name'
+                  <select
+                    value={employement}
+                    onChange={handleChange}
+                    name='employement'
                     required
-                    className='form-control'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                  >
+                    <option label='Employment Type' value=''></option>
+                    <option value='selfemployed'>Self Employed</option>
+                    <option value='govt'>Govt Jobs</option>
+                    <option value='private'>Private Jobs</option>
+                  </select>
                 </div>
                 <div className='form-group'>
                   <input
@@ -80,7 +202,7 @@ const Signup = () => {
                     required
                     className='form-control'
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -88,26 +210,28 @@ const Signup = () => {
                 <div className='form-group'>
                   <select
                     value={profileFor}
-                    onChange={(e) => setProfileFor(e.target.value)}
+                    onChange={handleChange}
+                    name='profileFor'
                     required
                   >
-                    <option>Profile for</option>
+                    <option label='Profile For' value=''></option>
                     <option value='myself'>My Self</option>
                     <option value='other'>Other</option>
                   </select>
                 </div>
                 <div className='form-group'>
                   <select
-                    value={employement}
-                    onChange={(e) => setEmployement(e.target.value)}
+                    value={gender}
+                    onChange={handleChange}
+                    name='gender'
                     required
                   >
-                    <option>Employment Type</option>
-                    <option value='selfemployed'>Self Employed</option>
-                    <option value='govt'>Govt Jobs</option>
-                    <option value='private'>Private Jobs</option>
+                    <option label='Gender' value=''></option>
+                    <option value='male'>Male</option>
+                    <option value='female'>Female</option>
                   </select>
                 </div>
+
                 <div className='form-group'>
                   <input
                     type='number'
@@ -116,7 +240,7 @@ const Signup = () => {
                     required
                     className='form-control'
                     value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -129,7 +253,7 @@ const Signup = () => {
                   required
                   className='form-control'
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleChange}
                 />
               </div>
               <div className='form-group'>
@@ -140,7 +264,8 @@ const Signup = () => {
                   required
                   className='form-control'
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  minLength='6'
+                  onChange={handleChange}
                 />
               </div>
               <button
