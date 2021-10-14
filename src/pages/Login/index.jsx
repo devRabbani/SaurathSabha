@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault()
     try {
       await firebaseApp.auth().signInWithEmailAndPassword(email, password)
-      history.push('/search')
+      history.push('/profile')
     } catch (error) {
       setEmail('')
       setPassword('')

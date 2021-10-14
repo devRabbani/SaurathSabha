@@ -7,10 +7,13 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
+import UserContext from './context/user'
+import useAuthListener from './hooks/useAuthListner'
 
 function App() {
+  const { user } = useAuthListener()
   return (
-    <>
+    <UserContext.Provider value={{ user }}>
       <Nav />
       <Switch>
         <Route exact path='/' component={HomePage} />
@@ -20,7 +23,7 @@ function App() {
         <Route exact path='/profile' component={Profile} />
       </Switch>
       <Footer />
-    </>
+    </UserContext.Provider>
   )
 }
 

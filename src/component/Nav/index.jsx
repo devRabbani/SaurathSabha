@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import './nav.style.css'
 import logo from '../../assets/Asset 1@2x.png'
+import UserContext from '../../context/user'
+import FirebaseContext from '../../context/firebase'
 
 const Nav = () => {
+  const { user } = useContext(UserContext)
+  const { firebaseApp } = useContext(FirebaseContext)
+
   return (
     <nav>
       <div className='container navContainer'>
@@ -46,13 +51,18 @@ const Nav = () => {
             </NavLink>
           </li>
         </ul>
-        <NavLink
-          activeClassName='bottomBorder'
-          className='nav-item btnNav'
-          to='/login'
-        >
-          Login
-        </NavLink>
+        {user ? (
+          <button
+            className='nav-item btnNav'
+            onClick={() => firebaseApp.auth().signOut()}
+          >
+            Logout
+          </button>
+        ) : (
+          <NavLink className='nav-item btnNav' to='/login'>
+            Login
+          </NavLink>
+        )}
       </div>
     </nav>
   )
