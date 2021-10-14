@@ -1,0 +1,16 @@
+.profileWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  align-items: center;
+}
+.rightSide {
+  margin-left: 50px;
+}
+.profileWrapper img {
+  width: 200px;
+}
+
+.profileWrapper h2 {
+  font-size: 2rem;
+}

@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <div className='login'>
-      <div className='container loginContainer'>
+      <div className='container loginContainer pageBody'>
         <h1 className='loginH1'>Login</h1>
         <div className='flexContainer'>
           <div className='loginLeft'>

@@ -43,7 +43,7 @@ p.headerTag {
 
 .formCard {
   box-shadow: 2px 3px 10px rgba(88, 88, 88, 0.534);
-  padding: 25px 45px;
+  padding: 25px 40px;
   width: 90%;
   background-color: white;
 }
@@ -76,11 +76,41 @@ input {
   font-size: 1.7rem;
 }
 
-.twoCol {
+/* .twoCol {
   display: flex;
   justify-content: space-between;
 }
 
 .twoCol .form-group {
   width: 48%;
+}
+
+.threeCol div.form-group {
+  width: 27%;
+}
+.threeCol .form-group:nth-child(3) {
+  width: 40%;
+}
+
+.nameAgeForm div.form-group {
+  width: 35%;
+}*/
+.nameAgeForm .form-group:nth-child(2) {
+  width: 72%;
+}
+
+.rightSide div.form-group {
+  width: auto;
+}
+
+.formCard p {
+  color: rgb(224, 50, 50);
+  font-size: 1.6rem;
+  margin: 10px auto 17px;
+  font-weight: 200;
+}
+
+label span {
+  color: red;
+  padding-top: 26px;
 }

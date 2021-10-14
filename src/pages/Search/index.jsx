@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Search = () => {
+const Search = ({ location }) => {
+  const searchString = location.state
+  console.log(searchString)
   return (
-    <div>
-      <h1>Search</h1>
+    <div className='pageBody'>
+      <h1 className='pageHeading'>Search</h1>
     </div>
   )
 }

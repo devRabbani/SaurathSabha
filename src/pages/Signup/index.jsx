@@ -89,7 +89,7 @@ const Signup = () => {
             .add({
               userId: createdUser.user.uid,
               name,
-              city,
+              city: city.toLowerCase(),
               age,
               gender,
               employement,
