@@ -27,7 +27,7 @@ const Nav = () => {
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/profile'
+              to={`/profile/${user && user.uid}`}
             >
               Profile
             </NavLink>
@@ -45,9 +45,9 @@ const Nav = () => {
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/dashboard'
+              to='/connection'
             >
-              Dashboard
+              Connection
             </NavLink>
           </li>
         </ul>

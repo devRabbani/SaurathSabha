@@ -94,13 +94,13 @@ const Signup = () => {
               gender,
               employement,
               profileFor,
-              profileUrl: `${gender}.png`,
+              profileUrl: `/${gender}.png`,
               email: email.toLowerCase(),
               dateCreated: Date.now(),
             })
         }
 
-        history.push('/profile')
+        history.push(`/profile/${createdUser.user.uid}`)
       } catch (error) {
         console.log(error.name)
         setData({

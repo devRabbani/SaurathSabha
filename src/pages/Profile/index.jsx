@@ -3,15 +3,20 @@ import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import './profile.style.css'
 
-const Profile = () => {
+const Profile = ({
+  match: {
+    params: { uid },
+  },
+}) => {
   const { firebaseApp } = useContext(FirebaseContext)
   const { user } = useContext(UserContext)
   const [profileData, setProfileData] = useState([])
+
   const handleStart = () => {
     firebaseApp
       .firestore()
       .collection('users')
-      .where('userId', '==', user.uid)
+      .where('userId', '==', uid)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -24,11 +29,13 @@ const Profile = () => {
   }
   useEffect(() => {
     handleStart()
-  }, [])
+  }, [uid])
 
   return (
     <div className='wrapper pageBody'>
-      <h1 className='pageHeading'>My Profile</h1>
+      <h1 className='pageHeading'>
+        {uid === user.uid ? 'My Profile' : 'Profile'}
+      </h1>
 
       {profileData.length !== 0 && (
         <div className='profileWrapper'>

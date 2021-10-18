@@ -20,7 +20,7 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/search' component={Search} />
-        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/profile/:uid' component={Profile} />
       </Switch>
       <Footer />
     </UserContext.Provider>

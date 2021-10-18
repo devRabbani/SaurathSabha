@@ -5,6 +5,7 @@ import bg from '../../assets/bg-abstract1.svg'
 import slugify from 'slugify'
 import { Link } from 'react-router-dom'
 import Profile from '../../pages/Profile'
+import Select from 'react-select'
 
 const HeroSection = () => {
   const [searchData, setSearchData] = useState({
@@ -26,6 +27,12 @@ const HeroSection = () => {
       [name]: value,
     }))
   }
+
+  const option = [
+    { value: 'bangalore', label: 'Bangalore' },
+    { value: 'assam', label: 'Assam' },
+    { value: 'patna', label: 'Patna' },
+  ]
 
   return (
     <section className='heroSection container'>
@@ -51,13 +58,20 @@ const HeroSection = () => {
               <label className='text-muted'>
                 City <span>*</span>
               </label>
-              <input
+              {/* <input
                 onChange={handleChange}
                 type='text'
                 name='city'
                 placeholder='Enter city'
                 value={city}
                 className='form-control'
+              /> */}
+              <Select
+                options={option}
+                onChange={(e) => console.log(e)}
+                placeholder='Select location'
+                isSearchable
+                isClearable
               />
             </div>
           </div>
