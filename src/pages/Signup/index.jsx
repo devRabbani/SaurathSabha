@@ -6,7 +6,8 @@ import FirebaseContext from '../../context/firebase'
 import { MdModeEdit } from 'react-icons/md'
 import { isUserExist } from '../../utils/firebase'
 
-const Signup = () => {
+const Signup = ({ location }) => {
+  console.log(location.state)
   const history = useHistory()
   const { firebaseApp, storage } = useContext(FirebaseContext)
   const uploadRef = useRef()
@@ -19,15 +20,15 @@ const Signup = () => {
     employement: '',
     profileFor: '',
     gender: '',
-    password: '',
+    userId: location.state,
   })
-  const { name, email, city, age, employement, profileFor, gender, password } =
+  const { name, email, city, age, employement, profileFor, gender, userId } =
     data
 
   const [previewUrl, setPreviewUrl] = useState('male.png')
   const [file, setFile] = useState(null)
   const [error, setError] = useState('')
-  const isInvalid = password === '' || email === ''
+  const isInvalid = email === ''
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -42,87 +43,76 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault()
-    const duplicate = await isUserExist(email)
-    if (!duplicate) {
-      try {
-        const createdUser = await firebaseApp
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-        //image upload
-        if (file) {
-          const uploadTask = storage
-            .ref(`${createdUser.user.uid}/${file.name}`)
-            .put(file)
-          uploadTask.on(
-            'state_changed',
-            (snapshot) => {
-              let progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              console.log('Upload is ' + progress + '% done')
-            },
-            (error) => {
-              console.log(error)
-            },
-            () => {
-              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                firebaseApp.firestore().collection('users').add({
-                  userId: createdUser.user.uid,
-                  name,
-                  city,
-                  age,
-                  employement,
-                  profileFor,
-                  profileUrl: downloadURL,
-                  email: email.toLowerCase(),
-                  dateCreated: Date.now(),
-                  connection: [],
-                  favourite: [],
-                })
+    try {
+      //image upload
+      if (file) {
+        const uploadTask = storage.ref(`${userId}/${file.name}`).put(file)
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            let progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log('Upload is ' + progress + '% done')
+          },
+          (error) => {
+            console.log(error)
+          },
+          () => {
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              firebaseApp.firestore().collection('users').add({
+                userId,
+                name,
+                city,
+                age,
+                employement,
+                profileFor,
+                profileUrl: downloadURL,
+                email: email.toLowerCase(),
+                dateCreated: Date.now(),
+                connection: [],
+                favourite: [],
               })
-            }
-          )
-        }
-
-        //Firestore user collection
-        if (!file) {
-          await firebaseApp
-            .firestore()
-            .collection('users')
-            .add({
-              userId: createdUser.user.uid,
-              name,
-              city: city.toLowerCase(),
-              age,
-              gender,
-              employement,
-              profileFor,
-              profileUrl: `/${gender}.png`,
-              email: email.toLowerCase(),
-              dateCreated: Date.now(),
-              connection: [],
-              favourite: [],
             })
-        }
-
-        history.push(`/profile/${createdUser.user.uid}`)
-      } catch (error) {
-        console.log(error.name)
-        setData({
-          name: '',
-          email: '',
-          city: '',
-          age: '',
-          employement: '',
-          profileFor: '',
-          gender: '',
-          password: '',
-        })
-        setPreviewUrl('male.png')
-        setFile(null)
-        setError(error.message)
+          }
+        )
       }
-    } else {
-      setError('The username already registered , please try other.')
+
+      //Firestore user collection
+      if (!file) {
+        await firebaseApp
+          .firestore()
+          .collection('users')
+          .add({
+            userId,
+            name,
+            city: city.toLowerCase(),
+            age,
+            gender,
+            employement,
+            profileFor,
+            profileUrl: `/${gender}.png`,
+            email: email.toLowerCase(),
+            dateCreated: Date.now(),
+            connection: [],
+            favourite: [],
+          })
+      }
+
+      history.push(`/profile/${userId}`)
+    } catch (error) {
+      console.log(error.name)
+      setData({
+        name: '',
+        email: '',
+        city: '',
+        age: '',
+        employement: '',
+        profileFor: '',
+        gender: '',
+      })
+      setPreviewUrl('male.png')
+      setFile(null)
+      setError(error.message)
     }
   }
 
@@ -248,7 +238,6 @@ const Signup = () => {
                   />
                 </div>
               </div>
-
               <div className='form-group'>
                 <input
                   type='email'
@@ -257,18 +246,6 @@ const Signup = () => {
                   required
                   className='form-control'
                   value={email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className='form-group'>
-                <input
-                  type='password'
-                  name='password'
-                  placeholder='Enter Password'
-                  required
-                  className='form-control'
-                  value={password}
-                  minLength='6'
                   onChange={handleChange}
                 />
               </div>

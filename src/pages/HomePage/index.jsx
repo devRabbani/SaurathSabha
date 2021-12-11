@@ -11,10 +11,10 @@ import { getUserByUid } from '../../utils/firebase'
 const HomePage = () => {
   const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    const result = getUserByUid(user.uid)
-    console.log(result)
-  }, [])
+  // useEffect(() => {
+  //   const result = getUserByUid(user.uid)
+  //   console.log(result)
+  // }, [])
 
   return (
     <>

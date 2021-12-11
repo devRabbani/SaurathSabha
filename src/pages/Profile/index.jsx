@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import useUser from '../../hooks/useUser'
 import './profile.style.css'
 
-const Profile = ({
-  match: {
-    params: { uid },
-  },
-}) => {
+const Profile = () => {
+  const uid = useParams().uid
+  console.log(uid)
   const { user } = useContext(UserContext)
   // const [profileData, setProfileData] = useState(null)
   const profileData = useUser(uid)
