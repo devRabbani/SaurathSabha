@@ -9,6 +9,7 @@ import Search from './pages/Search'
 import Profile from './pages/Profile'
 import UserContext from './context/user'
 import useAuthListener from './hooks/useAuthListner'
+import Connection from './pages/connection'
 
 function App() {
   const { user } = useAuthListener()
@@ -20,7 +21,9 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/search' component={Search} />
+
         <Route exact path='/profile/:uid' component={Profile} />
+        <Route path='/connection' component={Connection} />
       </Switch>
       <Footer />
     </UserContext.Provider>

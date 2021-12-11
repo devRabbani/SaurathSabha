@@ -75,6 +75,8 @@ const Signup = () => {
                   profileUrl: downloadURL,
                   email: email.toLowerCase(),
                   dateCreated: Date.now(),
+                  connection: [],
+                  favourite: [],
                 })
               })
             }
@@ -97,6 +99,8 @@ const Signup = () => {
               profileUrl: `/${gender}.png`,
               email: email.toLowerCase(),
               dateCreated: Date.now(),
+              connection: [],
+              favourite: [],
             })
         }
 
