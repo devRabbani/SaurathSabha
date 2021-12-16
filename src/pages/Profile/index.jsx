@@ -17,7 +17,7 @@ const Profile = () => {
   //   },[uid])
 
   return (
-    <div className='container pageBody'>
+    <div className='container pageBody profile'>
       <h1 className='pageHeading'>
         {uid === user.uid ? 'My Profile' : 'Profile'}
       </h1>
@@ -26,25 +26,116 @@ const Profile = () => {
           <div className='profileWrapper'>
             <img src={profileData.profileUrl} alt='Profile img' />
             <div className='rightSide'>
-              <h2>
-                NAME : {profileData.name} ,
+              <p>
+                <strong>NAME : </strong> {profileData.name} ,
                 <br />
-                Age : {profileData.age} ,
+                <strong>Age : </strong> {profileData.age} ,
                 <br />
-                Profile For : {profileData.profileFor} ,
+                <strong>Profile For : </strong> {profileData.profileFor} ,
                 <br />
-                City : {profileData.city} ,
+                <strong>City : </strong> {profileData.city} ,
                 <br />
-                Email : {profileData.email} ,
+                <strong>Email : </strong> {profileData.email} ,
                 <br />
-                Employement : {profileData.employement} ,
+                <strong>Employement : </strong> {profileData.employement} ,
                 <br />
-                Gender : {profileData.gender}
+                <strong>Gender : </strong> {profileData.gender}
                 <br />
-              </h2>
+              </p>
             </div>
           </div>
-          <h2>Additional Information</h2>
+          <div className='additionalInfo'>
+            <h1 className='pageHeading'>Additional Info</h1>
+            <div>
+              <div>
+                <h2>Bio :</h2>
+                <p className='textCenter'>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
+                  numquam delectus ex voluptates quos similique aspernatur
+                  necessitatibus dignissimos hic, laudantium cupiditate sed amet
+                  qui, voluptatum architecto? Voluptatibus tempora praesentium
+                  reiciendis. Dicta suscipit, totam consectetur esse explicabo
+                  sint mollitia facilis ullam.
+                </p>
+              </div>
+              <div>
+                <h2>Education and Career :</h2>
+                <p>
+                  <strong>NAME : </strong> {profileData.name} ,
+                  <br />
+                  <strong>Age : </strong> {profileData.age} ,
+                  <br />
+                  <strong>Profile For : </strong> {profileData.profileFor} ,
+                  <br />
+                  <strong>City : </strong> {profileData.city} ,
+                  <br />
+                  <strong>Email : </strong> {profileData.email} ,
+                  <br />
+                  <strong>Employement : </strong> {profileData.employement} ,
+                  <br />
+                  <strong>Gender : </strong> {profileData.gender}
+                  <br />
+                </p>
+              </div>
+              <div>
+                <h2>Family Background :</h2>
+                <p>
+                  <strong>NAME : </strong> {profileData.name} ,
+                  <br />
+                  <strong>Age : </strong> {profileData.age} ,
+                  <br />
+                  <strong>Profile For : </strong> {profileData.profileFor} ,
+                  <br />
+                  <strong>City : </strong> {profileData.city} ,
+                  <br />
+                  <strong>Email : </strong> {profileData.email} ,
+                  <br />
+                  <strong>Employement : </strong> {profileData.employement} ,
+                  <br />
+                  <strong>Gender : </strong> {profileData.gender}
+                  <br />
+                </p>
+              </div>
+              <div>
+                <h2>Hobies and Others :</h2>
+                <p>
+                  <strong>NAME : </strong> {profileData.name} ,
+                  <br />
+                  <strong>Age : </strong> {profileData.age} ,
+                  <br />
+                  <strong>Profile For : </strong> {profileData.profileFor} ,
+                  <br />
+                  <strong>City : </strong> {profileData.city} ,
+                  <br />
+                  <strong>Email : </strong> {profileData.email} ,
+                  <br />
+                  <strong>Employement : </strong> {profileData.employement} ,
+                  <br />
+                  <strong>Gender : </strong> {profileData.gender}
+                  <br />
+                </p>
+              </div>
+              <div>
+                <h2>Expectation :</h2>
+                <p>
+                  <strong>NAME : </strong> {profileData.name} ,
+                  <br />
+                  <strong>Age : </strong> {profileData.age} ,
+                  <br />
+                  <strong>Profile For : </strong> {profileData.profileFor} ,
+                  <br />
+                  <strong>City : </strong> {profileData.city} ,
+                  <br />
+                  <strong>Email : </strong> {profileData.email} ,
+                  <br />
+                  <strong>Employement : </strong> {profileData.employement} ,
+                  <br />
+                  <strong>Gender : </strong> {profileData.gender}
+                  <br />
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

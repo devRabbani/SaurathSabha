@@ -64,3 +64,7 @@ img {
   background-color: blue;
   margin: 5px auto;
 }
+
+.textCenter {
+  text-align: center;
+}

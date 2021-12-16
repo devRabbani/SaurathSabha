@@ -5,11 +5,12 @@ import { Link, useHistory } from 'react-router-dom'
 import FirebaseContext from '../../context/firebase'
 import { MdModeEdit } from 'react-icons/md'
 import { isUserExist } from '../../utils/firebase'
+import UserContext from '../../context/user'
 
 const Signup = ({ location }) => {
-  console.log(location.state)
   const history = useHistory()
   const { firebaseApp, storage } = useContext(FirebaseContext)
+  const { user } = useContext(UserContext)
   const uploadRef = useRef()
 
   const [data, setData] = useState({
@@ -128,6 +129,7 @@ const Signup = ({ location }) => {
 
   useEffect(() => {
     document.title = 'SignUp - SaurathSabha'
+    if (!location.state || user) history.push('/')
   }, [])
 
   useEffect(() => {
@@ -147,7 +149,7 @@ const Signup = ({ location }) => {
         <h1 className='loginH1'>SignUp</h1>
         <div className='flexContainer'>
           <div>
-            <form onSubmit={handleSignup}>
+            <form className='authCard' onSubmit={handleSignup}>
               {error && <p className='errorMsg'>{error}</p>}
               <div className='profilePic'>
                 <img src={previewUrl} alt='profile pic' />

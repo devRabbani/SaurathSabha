@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import FirebaseContext from '../../context/firebase'
 import firebase from 'firebase/compat/app'
 import { isUserExist } from '../../utils/firebase.js'
+import UserContext from '../../context/user'
 
 const Login = () => {
   const history = useHistory()
@@ -17,8 +18,10 @@ const Login = () => {
   const [final, setfinal] = useState('')
   const [isNew, setIsNew] = useState(false)
 
-  // const isInvalid = otp === '' || phone === ''
-  const isInvalid = number === ''
+  const { user } = useContext(UserContext)
+
+  const isInvalid = otp === '' || number === ''
+  // const isInvalid = number === ''
   // const handleLogin = async (e) => {
   //   e.preventDefault()
   //   try {
@@ -47,7 +50,10 @@ const Login = () => {
   const signin = async (e) => {
     e.preventDefault()
     const duplicate = await isUserExist(number)
-    if (number === '' || number.length < 10) return
+    if (number === '' || number.length < 10 || !Number(number)) {
+      setError('Not a valid Number,Try again')
+      return
+    }
     let verify = new firebase.auth.RecaptchaVerifier('recaptcha', {
       size: 'invisible',
     })
@@ -65,6 +71,7 @@ const Login = () => {
         })
         .catch((err) => {
           console.log(err)
+          setError(err)
           window.location.reload()
         })
     } else {
@@ -80,14 +87,15 @@ const Login = () => {
         })
         .catch((err) => {
           console.log(err)
-          // alert(err)
-          // window.location.reload()
+          setError(err)
+          window.location.reload()
         })
       console.log('New user')
     }
   }
 
-  const validateOtp = () => {
+  const validateOtp = (e) => {
+    e.preventDefault()
     if (otp === null || final === null) return
     final
       .confirm(otp)
@@ -113,6 +121,7 @@ const Login = () => {
 
   useEffect(() => {
     document.title = 'Login - SaurathSabha'
+    if (user) history.push('/')
   }, [])
 
   return (
@@ -121,12 +130,12 @@ const Login = () => {
         <h1 className='loginH1'>Login</h1>
         <div className='flexContainer'>
           <div className='loginLeft'>
-            <form onSubmit={signin}>
+            <div className='authCard'>
               {error && <p className='errorMsg'>{error}</p>}
               <div className='form-group'>
                 <label className='text-muted'>Enter Phone No</label>
                 <input
-                  type='text'
+                  type='tel'
                   maxLength='10'
                   minLength='10'
                   name='phone'
@@ -169,7 +178,7 @@ const Login = () => {
                 <button
                   className={`signInBtn ${isInvalid && 'disabled'}`}
                   disabled={isInvalid}
-                  type='submit'
+                  onClick={signin}
                 >
                   Send OTP
                 </button>
@@ -178,8 +187,7 @@ const Login = () => {
                   {isNew ? 'Create New Account' : 'Continue'}
                 </button>
               )}
-            </form>
-
+            </div>
             <div className='formBottom'>
               <p>
                 Dont have account <Link to='/signup'>SignUp</Link>
