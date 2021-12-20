@@ -7,12 +7,12 @@ import { MdModeEdit } from 'react-icons/md'
 import { isUserExist } from '../../utils/firebase'
 import UserContext from '../../context/user'
 
-const Signup = ({ location }) => {
-  const history = useHistory()
+const Signup = ({ location, history }) => {
+  // const history = useHistory()
   const { firebaseApp, storage } = useContext(FirebaseContext)
   const { user } = useContext(UserContext)
   const uploadRef = useRef()
-
+  const { phoneNo, uid } = location.state
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -21,10 +21,20 @@ const Signup = ({ location }) => {
     employement: '',
     profileFor: '',
     gender: '',
-    userId: location.state,
+    userId: uid,
+    number: phoneNo,
   })
-  const { name, email, city, age, employement, profileFor, gender, userId } =
-    data
+  const {
+    name,
+    email,
+    city,
+    age,
+    employement,
+    profileFor,
+    gender,
+    userId,
+    number,
+  } = data
 
   const [previewUrl, setPreviewUrl] = useState('male.png')
   const [file, setFile] = useState(null)
@@ -62,6 +72,7 @@ const Signup = ({ location }) => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
               firebaseApp.firestore().collection('users').add({
                 userId,
+                number,
                 name,
                 city,
                 age,
@@ -85,6 +96,7 @@ const Signup = ({ location }) => {
           .collection('users')
           .add({
             userId,
+            number,
             name,
             city: city.toLowerCase(),
             age,
@@ -129,7 +141,7 @@ const Signup = ({ location }) => {
 
   useEffect(() => {
     document.title = 'SignUp - SaurathSabha'
-    if (!location.state || user) history.push('/')
+    if (!location.state) history.push('/')
   }, [])
 
   useEffect(() => {

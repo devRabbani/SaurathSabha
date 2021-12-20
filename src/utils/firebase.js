@@ -21,6 +21,16 @@ export const getUserByUid = async (uid) => {
   return user
 }
 
+export const getAddionalData = async (uid) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('additionalData')
+    .where('userId', '==', uid)
+    .get()
+  const data = result.docs.map((item) => item.data())
+  return data
+}
+
 export const addToFav = async (uid, favUid) => {
   await firebaseApp
     .firestore()

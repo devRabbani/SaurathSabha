@@ -11,6 +11,8 @@ import UserContext from './context/user'
 import useAuthListener from './hooks/useAuthListner'
 import Connection from './pages/connection'
 import ProtectedRoute from './utils/protected.route'
+import EditProfile from './pages/editProfile'
+import EditAdditional from './pages/editAddtional'
 
 function App() {
   const { user } = useAuthListener()
@@ -26,6 +28,12 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute user={user} exact path='/profile/:uid'>
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute user={user} exact path='/edit/profile'>
+          <EditProfile />
+        </ProtectedRoute>
+        <ProtectedRoute user={user} exact path='/edit/additional'>
+          <EditAdditional />
         </ProtectedRoute>
         <ProtectedRoute user={user} path='/connection' exact>
           <Connection />

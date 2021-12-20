@@ -20,7 +20,7 @@ const Login = () => {
 
   const { user } = useContext(UserContext)
 
-  const isInvalid = otp === '' || number === ''
+  const isInvalid = number === ''
   // const isInvalid = number === ''
   // const handleLogin = async (e) => {
   //   e.preventDefault()
@@ -105,12 +105,13 @@ const Login = () => {
         if (isNew) {
           history.push({
             pathname: '/signup',
-            state: result.user.uid,
+            state: { phoneNo: number, uid: result.user.uid },
           })
           console.log(result.user)
           console.log('history push')
         } else {
           console.log(result.user)
+          history.push(`/profile/${result.user.uid}`)
           console.log('generela')
         }
       })
@@ -135,7 +136,7 @@ const Login = () => {
               <div className='form-group'>
                 <label className='text-muted'>Enter Phone No</label>
                 <input
-                  type='tel'
+                  type='text'
                   maxLength='10'
                   minLength='10'
                   name='phone'
