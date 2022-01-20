@@ -1,39 +1,40 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import FirebaseContext from '../../context/firebase'
-import UserContext from '../../context/user'
-import useUser from '../../hooks/useUser'
-import { getAddionalData } from '../../utils/firebase'
-import './profile.style.css'
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import FirebaseContext from "../../context/firebase";
+import UserContext from "../../context/user";
+import useUser from "../../hooks/useUser";
+import { getAddionalData } from "../../utils/firebase";
+import "./profile.style.css";
 
 const Profile = () => {
-  const [additionalData, setAdditionalData] = useState()
+  const [additionalData, setAdditionalData] = useState();
 
-  const uid = useParams().uid
-  const { user } = useContext(UserContext)
+  const uid = useParams().uid;
+
+  const { user } = useContext(UserContext);
   // const [profileData, setProfileData] = useState(null)
-  const profileData = useUser(uid)
+  const profileData = useUser();
 
   const fetchData = async () => {
-    const [result] = await getAddionalData(uid)
-    setAdditionalData(result)
-  }
+    const [result] = await getAddionalData(uid);
+    setAdditionalData(result);
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [uid])
+    fetchData();
+  }, [uid]);
 
   return (
-    <div className='container pageBody profile'>
+    <div className="container pageBody profile">
       {console.log(additionalData)}
-      <h1 className='pageHeading'>
-        {uid === user.uid ? 'My Profile' : 'Profile'}
+      <h1 className="pageHeading">
+        {uid === user.uid ? "My Profile" : "Profile"}
       </h1>
       {profileData && (
         <div>
-          <div className='profileWrapper'>
-            <img src={profileData.profileUrl} alt='Profile img' />
-            <div className='rightSide'>
+          <div className="profileWrapper">
+            <img src={profileData.profileUrl} alt="Profile img" />
+            <div className="rightSide">
               <p>
                 <strong>NAME : </strong> {profileData.name} ,
                 <br />
@@ -52,14 +53,14 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <div className='additionalInfo'>
-            <h1 className='pageHeading'>Additional Info</h1>
+          <div className="additionalInfo">
+            <h1 className="pageHeading">Additional Info</h1>
             {additionalData ? (
-              <div className='noData'>
+              <div className="noData">
                 <p>There is No Data Found.</p>
                 <Link
                   to={{
-                    pathname: '/edit/additional',
+                    pathname: "/edit/additional",
                     state: uid,
                   }}
                 >
@@ -70,7 +71,7 @@ const Profile = () => {
               <div>
                 <div>
                   <h2>Bio :</h2>
-                  <p className='textCenter'>
+                  <p className="textCenter">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Esse numquam delectus ex voluptates quos similique
                     aspernatur necessitatibus dignissimos hic, laudantium
@@ -161,7 +162,7 @@ const Profile = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
