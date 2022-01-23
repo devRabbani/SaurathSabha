@@ -54,7 +54,7 @@ const Profile = () => {
           </div>
           <div className='additionalInfo'>
             <h1 className='pageHeading'>Additional Info</h1>
-            {additionalData ? (
+            {false ? (
               <div className='noData'>
                 <p>There is No Data Found.</p>
                 <Link
@@ -71,45 +71,33 @@ const Profile = () => {
                 <div>
                   <h2>Bio :</h2>
                   <p className='textCenter'>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Esse numquam delectus ex voluptates quos similique
-                    aspernatur necessitatibus dignissimos hic, laudantium
-                    cupiditate sed amet qui, voluptatum architecto? Voluptatibus
-                    tempora praesentium reiciendis. Dicta suscipit, totam
-                    consectetur esse explicabo sint mollitia facilis ullam.
+                    Hellow I am test user here for testing.
                   </p>
                 </div>
                 <div>
                   <h2>Education and Career :</h2>
                   <p>
-                    <strong>NAME : </strong> {profileData.name} ,
+                    <strong>Qualification : </strong> HS Science ,
                     <br />
-                    <strong>Age : </strong> {profileData.age} ,
+                    <strong>Completion Year : </strong> 2017 ,
                     <br />
-                    <strong>Profile For : </strong> {profileData.profileFor} ,
+                    <strong>Current Job : </strong> Student ,
                     <br />
-                    <strong>City : </strong> {profileData.city} ,
-                    <br />
-                    <strong>Email : </strong> {profileData.email} ,
-                    <br />
-                    <strong>Employement : </strong> {profileData.employement} ,
-                    <br />
-                    <strong>Gender : </strong> {profileData.gender}
-                    <br />
+                    <strong>Estimated Annual Income : </strong> 0/-
                   </p>
                 </div>
                 <div>
                   <h2>Family Background :</h2>
                   <p>
-                    <strong>NAME : </strong> {profileData.name} ,
+                    <strong>Father Name : </strong> Test Father,
                     <br />
-                    <strong>Age : </strong> {profileData.age} ,
+                    <strong>Father Profession : </strong> business,
                     <br />
-                    <strong>Profile For : </strong> {profileData.profileFor} ,
+                    <strong>Grandfather Name : </strong> Test Grandfather ,
                     <br />
-                    <strong>City : </strong> {profileData.city} ,
+                    <strong>Gautra : </strong> testGautra ,
                     <br />
-                    <strong>Email : </strong> {profileData.email} ,
+                    <strong>Maul : </strong> testMaul ,
                     <br />
                     <strong>Employement : </strong> {profileData.employement} ,
                     <br />
@@ -120,38 +108,12 @@ const Profile = () => {
                 <div>
                   <h2>Hobies and Others :</h2>
                   <p>
-                    <strong>NAME : </strong> {profileData.name} ,
+                    <strong>Hobbies :</strong>
+                    Singing , Watching movie , dancing,
                     <br />
-                    <strong>Age : </strong> {profileData.age} ,
+                    <strong>Do you smoke ? : </strong> NO ,
                     <br />
-                    <strong>Profile For : </strong> {profileData.profileFor} ,
-                    <br />
-                    <strong>City : </strong> {profileData.city} ,
-                    <br />
-                    <strong>Email : </strong> {profileData.email} ,
-                    <br />
-                    <strong>Employement : </strong> {profileData.employement} ,
-                    <br />
-                    <strong>Gender : </strong> {profileData.gender}
-                    <br />
-                  </p>
-                </div>
-                <div>
-                  <h2>Expectation :</h2>
-                  <p>
-                    <strong>NAME : </strong> {profileData.name} ,
-                    <br />
-                    <strong>Age : </strong> {profileData.age} ,
-                    <br />
-                    <strong>Profile For : </strong> {profileData.profileFor} ,
-                    <br />
-                    <strong>City : </strong> {profileData.city} ,
-                    <br />
-                    <strong>Email : </strong> {profileData.email} ,
-                    <br />
-                    <strong>Employement : </strong> {profileData.employement} ,
-                    <br />
-                    <strong>Gender : </strong> {profileData.gender}
+                    <strong>Are you alcoholic ? : </strong> NO ,
                     <br />
                   </p>
                 </div>
