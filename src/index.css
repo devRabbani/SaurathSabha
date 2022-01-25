@@ -48,6 +48,7 @@ img {
 
 .pageBody {
   min-height: 93.5vh;
+  padding-bottom: 70px;
 }
 
 .pageHeading {
@@ -63,4 +64,8 @@ img {
   height: 2px;
   background-color: blue;
   margin: 5px auto;
+}
+
+.textCenter {
+  text-align: center;
 }
