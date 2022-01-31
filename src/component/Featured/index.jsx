@@ -23,7 +23,7 @@ const Featured = () => {
         <div className='slider'>
           <Swiper
             spaceBetween={18}
-            slidesPerView={5}
+            slidesPerView={4}
             navigation
             autoplay
             pagination={{

@@ -1,59 +1,68 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import './nav.style.css'
+import logo from '../../assets/Asset 1@2x.png'
+import UserContext from '../../context/user'
+import FirebaseContext from '../../context/firebase'
 
 const Nav = () => {
+  const { user } = useContext(UserContext)
+  const { firebaseApp } = useContext(FirebaseContext)
+
   return (
     <nav>
       <div className='container navContainer'>
         <div className='logo'>
-          <NavLink to='/'>SaurathSabha</NavLink>
+          <img src={logo} alt='Logo' />
+
+          {/* <NavLink to='/'>SaurathSabha</NavLink> */}
         </div>
         <ul className='nav'>
           <li>
-            <NavLink
-              className='nav-item'
-              activeClassName='bottomBorder'
-              to='/create'
-            >
-              About
+            <NavLink className='nav-item' activeClassName='bottomBorder' to='/'>
+              Home
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/about'
+              to={`/profile/${user && user.uid}`}
             >
-              Featured
+              Profile
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/contact'
+              to='/search'
             >
-              Contact
+              Search
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/contact'
+              to='/connection'
             >
-              Services
+              Connection
             </NavLink>
           </li>
         </ul>
-        <NavLink
-          activeClassName='bottomBorder'
-          className='nav-item btnNav'
-          to='/login'
-        >
-          Login
-        </NavLink>
+        {user ? (
+          <button
+            className='nav-item btnNav'
+            onClick={() => firebaseApp.auth().signOut()}
+          >
+            Logout
+          </button>
+        ) : (
+          <NavLink className='nav-item btnNav' to='/login'>
+            Login
+          </NavLink>
+        )}
       </div>
     </nav>
   )

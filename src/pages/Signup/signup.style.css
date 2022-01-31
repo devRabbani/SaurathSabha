@@ -1,0 +1,34 @@
+.formHorizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.formHorizontal select {
+  padding: 10px;
+}
+
+.formHorizontal .form-group {
+  width: 48%;
+}
+
+.formHorizontal.triple .form-group {
+  width: 35%;
+}
+.formHorizontal.triple .form-group:nth-child(2) {
+  width: 25%;
+}
+
+.profilePic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: -15px auto 15px;
+}
+.profilePic img {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  border: 3px solid rgb(212, 212, 212);
+  margin-bottom: 7px;
+}
