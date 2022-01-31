@@ -45,9 +45,18 @@ const Nav = () => {
             <NavLink
               activeClassName='bottomBorder'
               className='nav-item'
-              to='/connection'
+              to='/favourite'
             >
-              Connection
+              Favourite
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              activeClassName='bottomBorder'
+              className='nav-item'
+              to='/plans'
+            >
+              Plans
             </NavLink>
           </li>
         </ul>
