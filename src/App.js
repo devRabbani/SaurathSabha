@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Nav from './component/Nav'
@@ -14,36 +14,71 @@ import ProtectedRoute from './utils/protected.route'
 import EditProfile from './pages/editProfile'
 import EditAdditional from './pages/editAddtional'
 import Plans from './pages/plans'
+import Modal from './component/Modal'
+import LoginModal from './component/LoginModal'
+import ModalPage from './pages/ModalPage'
 
 function App() {
   const { user } = useAuthListener()
+  const [isModal, setIsModal] = useState(false)
+
+  // useEffect(() => {
+  //   if (isModal) {
+  //     document.body.style.overflowY = 'hidden'
+  //   } else {
+  //     document.body.style.overflowY = 'unset'
+  //   }
+  // }, [isModal])
+
   return (
     <UserContext.Provider value={{ user }}>
-      <Nav username='Golam Rabbani' />
+      <Nav setIsModal={setIsModal} user={user} />
       <Switch>
-        <Route exact path='/' component={HomePage} />
+        <Route exact path='/'>
+          <HomePage isModal={isModal} setIsModal={setIsModal} />
+        </Route>
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <ProtectedRoute user={user} path='/search' exact>
+        <ProtectedRoute setIsModal={null} user={user} path='/search' exact>
           <Search />
         </ProtectedRoute>
-        <ProtectedRoute user={user} exact path='/profile/:uid'>
+        <ProtectedRoute
+          setIsModal={null}
+          user={user}
+          exact
+          path='/profile/:uid'
+        >
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute user={user} exact path='/edit/profile'>
+        <ProtectedRoute
+          setIsModal={null}
+          user={user}
+          exact
+          path='/edit/profile'
+        >
           <EditProfile />
         </ProtectedRoute>
-        <ProtectedRoute user={user} exact path='/edit/additional'>
+        <ProtectedRoute
+          setIsModal={null}
+          user={user}
+          exact
+          path='/edit/additional'
+        >
           <EditAdditional />
         </ProtectedRoute>
-        <ProtectedRoute user={user} path='/favourite'>
+        <ProtectedRoute exact setIsModal={null} user={user} path='/favourite'>
           <Connection />
         </ProtectedRoute>
-        <ProtectedRoute user={user} path='/plans'>
+        <ProtectedRoute setIsModal={null} user={user} path='/plans'>
           <Plans />
         </ProtectedRoute>
       </Switch>
       <Footer />
+      {/* {isModal && (
+        <Modal setIsModal={setIsModal}>
+          <LoginModal />
+        </Modal>
+      )} */}
     </UserContext.Provider>
   )
 }

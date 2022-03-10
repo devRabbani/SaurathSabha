@@ -13,14 +13,18 @@ import {
   FaUserCircle,
 } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-const Nav = ({ username }) => {
-  const { user } = useContext(UserContext)
+const Nav = ({ user, setIsModal }) => {
+  const history = useHistory()
   const { firebaseApp } = useContext(FirebaseContext)
   const [isMenu, setIsMenu] = useState(false)
 
   const handleMenu = () => {
     setIsMenu((prev) => !prev)
+  }
+  const handleLogin = () => {
+    setIsModal(true)
   }
 
   return (
@@ -102,9 +106,9 @@ const Nav = ({ username }) => {
             )}
           </div>
         ) : (
-          <NavLink className='nav-item btnNav' to='/login'>
+          <button onClick={handleLogin} className='btnNav'>
             Login
-          </NavLink>
+          </button>
         )}
       </div>
     </nav>
