@@ -109,8 +109,9 @@ div.personalised ul.frontUl li:nth-child(-n + 5) {
 }
 
 .planBtn:hover {
-  background-color: royalblue;
+  background-color: blueviolet;
   color: white;
+  border-color: blueviolet;
 }
 
 .planCard:hover {

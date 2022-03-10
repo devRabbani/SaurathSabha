@@ -69,3 +69,7 @@ img {
 .textCenter {
   text-align: center;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

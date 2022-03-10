@@ -19,7 +19,7 @@ function App() {
   const { user } = useAuthListener()
   return (
     <UserContext.Provider value={{ user }}>
-      <Nav />
+      <Nav username='Golam Rabbani' />
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route exact path='/login' component={Login} />
