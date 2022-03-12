@@ -5,6 +5,7 @@ import firebase from 'firebase/compat/app'
 import { isUserExist } from '../../utils/firebase.js'
 import UserContext from '../../context/user'
 import './loginModal.style.css'
+import ModalContext from '../../context/modal'
 
 const LoginModal = () => {
   const history = useHistory()
@@ -20,6 +21,7 @@ const LoginModal = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const { user } = useContext(UserContext)
+  const { setIsModal } = useContext(ModalContext)
 
   const isInvalid = number.length < 10
 
@@ -92,6 +94,7 @@ const LoginModal = () => {
         //SUcces
         setIsLoading(false)
         if (isNew) {
+          setIsModal(false)
           history.push({
             pathname: '/signup',
             state: { phoneNo: number, uid: result.user.uid },
@@ -101,8 +104,9 @@ const LoginModal = () => {
         } else {
           console.log(result.user)
           setIsLoading(false)
+          setIsModal(false)
           history.push(`/profile/${result.user.uid}`)
-          console.log('generela')
+          console.log('Success from user signin')
         }
       })
       .catch((err) => {
@@ -134,6 +138,8 @@ const LoginModal = () => {
             <input
               type='text'
               name='otp'
+              maxLength={6}
+              minLength={6}
               placeholder='Enter OTP'
               className='form-control'
               value={otp}

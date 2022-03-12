@@ -23,9 +23,6 @@ const Nav = ({ user, setIsModal }) => {
   const handleMenu = () => {
     setIsMenu((prev) => !prev)
   }
-  const handleLogin = () => {
-    setIsModal(true)
-  }
 
   return (
     <nav>
@@ -106,7 +103,7 @@ const Nav = ({ user, setIsModal }) => {
             )}
           </div>
         ) : (
-          <button onClick={handleLogin} className='btnNav'>
+          <button onClick={() => setIsModal(true)} className='btnNav'>
             Login
           </button>
         )}
