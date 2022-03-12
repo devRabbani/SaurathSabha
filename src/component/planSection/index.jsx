@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaCheck, FaTimes } from 'react-icons/fa'
+import { FaCheck, FaTimes, FaCertificate } from 'react-icons/fa'
 import './planSection.style.css'
 const PlanSection = () => {
   return (
@@ -32,6 +32,10 @@ const PlanSection = () => {
           <button>Select Plan</button>
         </div>
         <div className='planSectionCard big'>
+          <div className='popular'>
+            <FaCertificate />
+            Popular
+          </div>
           <h3>Gold</h3>
           <ul className='frontUl'>
             <li className='include'>

@@ -27,14 +27,15 @@
 .planName {
   position: absolute;
   top: -3px;
-  left: -5px;
-  right: -5px;
+  left: 0px;
+  right: 0px;
   /* border-radius: 40px 40px 0 0; */
-  background-color: rgb(66, 127, 219);
-  color: aliceblue;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-size: 1.8rem;
   padding: 7px;
-  box-shadow: 0 2px 17px rgba(27, 27, 27, 0.233);
+  box-shadow: 0 7px 15px -9px rgba(27, 27, 27, 0.315);
+  border-top: 5px solid royalblue;
 }
 
 .planWrapper {
@@ -142,18 +143,22 @@ div.personalised {
 } */
 
 .gold .planName {
-  background-color: rgb(206, 185, 0);
+  border-top: 5px solid gold;
+  /* background-color: rgb(206, 185, 0); */
 }
 .platinum .planName {
-  background-color: #001d09;
+  /* background-color: #001d09; */
+  border-top: 5px solid #001d09;
 }
 .personalised .planName {
-  background-color: #c726c7;
+  /* background-color: #c726c7; */
+  border-top: 5px solid #c726c7;
 }
 .basic .planName {
-  background-color: white;
+  /* background-color: white;
   color: black;
-  border-bottom: 1px solid black !important;
+  border-bottom: 1px solid black !important; */
+  border-top: 5px solid gold;
 }
 
 ul.detailedUl {
