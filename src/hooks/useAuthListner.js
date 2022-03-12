@@ -8,16 +8,9 @@ export default function useAuthListener() {
     const listner = firebaseApp.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
         //have authUser and set localstorage
-
         if (!user) {
-          firebaseApp
-            .auth()
-            .currentUser.updateProfile({ displayName: 'display check' })
-            .then(() => {
-              localStorage.setItem('authUser', JSON.stringify(authUser))
-              setUser(authUser)
-            })
-            .catch((err) => console.log('Error on updating display name', err))
+          localStorage.setItem('authUser', JSON.stringify(authUser))
+          setUser(authUser)
         }
       } else {
         //not have authuser remove from localstorage

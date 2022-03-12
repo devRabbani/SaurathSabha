@@ -5,8 +5,10 @@ import Featured from '../../component/Featured'
 import HeroSection from '../../component/HeroSection'
 import LoginModal from '../../component/LoginModal'
 import Modal from '../../component/Modal'
+import PlanSection from '../../component/planSection'
 import Services from '../../component/Services'
 import Testimony from '../../component/Testimony'
+import TestimonyGrid from '../../component/TestimonyGrid'
 import WhyUs from '../../component/WhyUs'
 import UserContext from '../../context/user'
 import { getUserByUid } from '../../utils/firebase'
@@ -40,8 +42,10 @@ const HomePage = ({ isModal, setIsModal }) => {
       <About />
       <Services />
       <WhyUs />
-      <Testimony />
-      {isModal && (
+      <TestimonyGrid />
+      <PlanSection />
+      {/* <Testimony /> */}
+      {!user && isModal && (
         <Modal setIsModal={setIsModal}>
           <LoginModal />
         </Modal>

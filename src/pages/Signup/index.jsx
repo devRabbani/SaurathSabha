@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "./signup.style.css";
-import img from "../../assets/wedding.svg";
-import { Link, useHistory } from "react-router-dom";
-import FirebaseContext from "../../context/firebase";
-import { MdModeEdit } from "react-icons/md";
-import { isUserExist } from "../../utils/firebase";
-import UserContext from "../../context/user";
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import './signup.style.css'
+import img from '../../assets/wedding.svg'
+import { Link, useHistory } from 'react-router-dom'
+import FirebaseContext from '../../context/firebase'
+import { MdModeEdit } from 'react-icons/md'
+import { isUserExist } from '../../utils/firebase'
+import UserContext from '../../context/user'
 
 const Signup = ({ location, history }) => {
   // const history = useHistory()
-  const { firebaseApp, storage } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
-  const uploadRef = useRef();
-  const { phoneNo, uid } = location.state;
+  const { firebaseApp, storage } = useContext(FirebaseContext)
+  const { user } = useContext(UserContext)
+  const uploadRef = useRef()
+  const { phoneNo, uid } = location.state
   const [data, setData] = useState({
-    name: "",
-    email: "",
-    city: "",
-    age: "",
-    employement: "",
-    profileFor: "",
-    gender: "",
+    name: '',
+    email: '',
+    city: '',
+    age: '',
+    employement: '',
+    profileFor: '',
+    gender: '',
     userId: uid,
     number: phoneNo,
-  });
+  })
   const {
     name,
     email,
@@ -34,43 +34,43 @@ const Signup = ({ location, history }) => {
     gender,
     userId,
     number,
-  } = data;
+  } = data
 
-  const [previewUrl, setPreviewUrl] = useState("male.png");
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState("");
-  const isInvalid = email === "";
+  const [previewUrl, setPreviewUrl] = useState('male.png')
+  const [file, setFile] = useState(null)
+  const [error, setError] = useState('')
+  const isInvalid = email === ''
 
   const handleChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
+    e.preventDefault()
+    const { name, value } = e.target
     setData((prev) => {
       return {
         ...prev,
         [name]: value,
-      };
-    });
-  };
+      }
+    })
+  }
 
   const handleSignup = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       //image upload
       if (file) {
-        const uploadTask = storage.ref(`${userId}/${file.name}`).put(file);
+        const uploadTask = storage.ref(`${userId}/${file.name}`).put(file)
         uploadTask.on(
-          "state_changed",
+          'state_changed',
           (snapshot) => {
             let progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log('Upload is ' + progress + '% done')
           },
           (error) => {
-            console.log(error);
+            console.log(error)
           },
           () => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-              firebaseApp.firestore().collection("users").add({
+              firebaseApp.firestore().collection('users').add({
                 userId,
                 number,
                 name,
@@ -83,22 +83,25 @@ const Signup = ({ location, history }) => {
                 dateCreated: Date.now(),
                 connection: [],
                 favourite: [],
-              });
-              firebaseApp.firestore().collection("requsted").add({
+              })
+              firebaseApp.auth().currentUser.updateProfile({
+                displayName: name,
+              })
+              firebaseApp.firestore().collection('requsted').add({
                 userId,
                 request: [],
                 sent: [],
-              });
-            });
+              })
+            })
           }
-        );
+        )
       }
 
       //Firestore user collection
       if (!file) {
         await firebaseApp
           .firestore()
-          .collection("users")
+          .collection('users')
           .add({
             userId,
             number,
@@ -113,184 +116,185 @@ const Signup = ({ location, history }) => {
             dateCreated: Date.now(),
             connection: [],
             favourite: [],
-          });
+          })
       }
-      await firebaseApp.firestore().collection("requsted").add({
+      await firebaseApp.firestore().collection('requsted').add({
         userId,
         request: [],
         sent: [],
-      });
+      })
 
-      history.push(`/profile/${userId}`);
+      history.push(`/profile/${userId}`)
     } catch (error) {
-      console.log(error.name);
+      console.log(error.name)
       setData({
-        name: "",
-        email: "",
-        city: "",
-        age: "",
-        employement: "",
-        profileFor: "",
-        gender: "",
-      });
-      setPreviewUrl("male.png");
-      setFile(null);
-      setError(error.message);
+        name: '',
+        email: '',
+        city: '',
+        age: '',
+        employement: '',
+        profileFor: '',
+        gender: '',
+      })
+      setPreviewUrl('male.png')
+      setFile(null)
+      setError(error.message)
     }
-  };
+  }
 
   const handleClick = (e) => {
-    e.preventDefault();
-    uploadRef.current.click();
-  };
+    e.preventDefault()
+    uploadRef.current.click()
+  }
   const handleFile = async (e) => {
     if (e.target.files) {
-      setFile(e.target.files[0]);
+      setFile(e.target.files[0])
     }
-  };
+  }
 
   useEffect(() => {
-    document.title = "SignUp - SaurathSabha";
-    if (!location.state) history.push("/");
-  }, []);
+    document.title = 'SignUp - SaurathSabha'
+    if (!location.state) history.push('/')
+  }, [])
 
   useEffect(() => {
     if (!file) {
-      return;
+      return
     }
-    const fileReader = new FileReader();
+    const fileReader = new FileReader()
     fileReader.onload = () => {
-      setPreviewUrl(fileReader.result);
-    };
-    fileReader.readAsDataURL(file);
-  }, [file]);
+      setPreviewUrl(fileReader.result)
+    }
+    fileReader.readAsDataURL(file)
+  }, [file])
 
   return (
-    <div className="signUp">
-      <div className="container loginContainer">
-        <h1 className="loginH1">SignUp</h1>
-        <div className="flexContainer">
+    <div className='signUp'>
+      <div className='container loginContainer'>
+        <h1 className='loginH1'>SignUp</h1>
+        <div className='flexContainer'>
           <div>
-            <form className="authCard" onSubmit={handleSignup}>
-              {error && <p className="errorMsg">{error}</p>}
-              <div className="profilePic">
-                <img src={previewUrl} alt="profile pic" />
+            <form className='authCard' onSubmit={handleSignup}>
+              {error && <p className='errorMsg'>{error}</p>}
+              <div className='profilePic'>
+                <img src={previewUrl} alt='profile pic' />
                 <input
-                  type="file"
-                  name="image"
+                  type='file'
+                  name='image'
                   ref={uploadRef}
                   onChange={handleFile}
-                  accept="image/*"
-                  placeholder="Choose a profile pic"
-                  hidden="hidden"
+                  accept='image/*'
+                  placeholder='Choose a profile pic'
+                  hidden='hidden'
                 />
                 <button onClick={handleClick}>Change Image</button>
               </div>
 
-              <div className="form-group">
+              <div className='form-group'>
                 <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter Your Name"
+                  type='text'
+                  name='name'
+                  placeholder='Enter Your Name'
                   required
-                  className="form-control"
+                  maxLength={25}
+                  className='form-control'
                   value={name}
                   onChange={handleChange}
                 />
               </div>
-              <div className="formHorizontal">
-                <div className="form-group">
+              <div className='formHorizontal'>
+                <div className='form-group'>
                   <select
                     value={employement}
                     onChange={handleChange}
-                    name="employement"
+                    name='employement'
                     required
                   >
-                    <option label="Employment Type" value=""></option>
-                    <option value="selfemployed">Self Employed</option>
-                    <option value="govt">Govt Jobs</option>
-                    <option value="private">Private Jobs</option>
+                    <option label='Employment Type' value=''></option>
+                    <option value='selfemployed'>Self Employed</option>
+                    <option value='govt'>Govt Jobs</option>
+                    <option value='private'>Private Jobs</option>
                   </select>
                 </div>
-                <div className="form-group">
+                <div className='form-group'>
                   <input
-                    type="text"
-                    name="city"
-                    placeholder="Enter City"
+                    type='text'
+                    name='city'
+                    placeholder='Enter City'
                     required
-                    className="form-control"
+                    className='form-control'
                     value={city}
                     onChange={handleChange}
                   />
                 </div>
               </div>
-              <div className="formHorizontal triple">
-                <div className="form-group">
+              <div className='formHorizontal triple'>
+                <div className='form-group'>
                   <select
                     value={profileFor}
                     onChange={handleChange}
-                    name="profileFor"
+                    name='profileFor'
                     required
                   >
-                    <option label="Profile For" value=""></option>
-                    <option value="myself">My Self</option>
-                    <option value="other">Other</option>
+                    <option label='Profile For' value=''></option>
+                    <option value='myself'>My Self</option>
+                    <option value='other'>Other</option>
                   </select>
                 </div>
-                <div className="form-group">
+                <div className='form-group'>
                   <select
                     value={gender}
                     onChange={handleChange}
-                    name="gender"
+                    name='gender'
                     required
                   >
-                    <option label="Gender" value=""></option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option label='Gender' value=''></option>
+                    <option value='male'>Male</option>
+                    <option value='female'>Female</option>
                   </select>
                 </div>
 
-                <div className="form-group">
+                <div className='form-group'>
                   <input
-                    type="number"
-                    name="age"
-                    placeholder="Enter age"
+                    type='number'
+                    name='age'
+                    placeholder='Enter age'
                     required
-                    className="form-control"
+                    className='form-control'
                     value={age}
                     onChange={handleChange}
                   />
                 </div>
               </div>
-              <div className="form-group">
+              <div className='form-group'>
                 <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter Email"
+                  type='email'
+                  name='email'
+                  placeholder='Enter Email'
                   required
-                  className="form-control"
+                  className='form-control'
                   value={email}
                   onChange={handleChange}
                 />
               </div>
               <button
-                className={`signInBtn ${isInvalid && "disabled"}`}
+                className={`signInBtn ${isInvalid && 'disabled'}`}
                 disabled={isInvalid}
-                type="submit"
+                type='submit'
               >
                 Sign Up
               </button>
             </form>
-            <div className="formBottom">
+            <div className='formBottom'>
               <p>
-                Already have an account <Link to="/register">SignIn</Link>
+                Already have an account <Link to='/register'>SignIn</Link>
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

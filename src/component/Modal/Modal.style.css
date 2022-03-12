@@ -14,13 +14,14 @@
 
 .modalCard {
   padding: 40px;
-  width: auto;
+  /* width: auto; */
   max-width: 1400px;
   margin-top: 50px;
   background-color: rgb(255, 255, 255);
   z-index: 20;
   box-shadow: 1px 3px 5px rgb(0, 0, 0);
   position: relative;
+  border: 15px solid rgb(220, 227, 255);
 }
 
 .modalCard.small {
@@ -54,13 +55,14 @@
   font-weight: 600;
 }
 .cancelIcon svg {
-  color: black;
+  /* color: rgb(59, 59, 59); */
+  color: rgb(89, 0, 172);
   font-size: 3rem;
 }
 .cancelIcon {
   position: absolute;
-  right: 7px;
-  top: 6px;
+  right: 13px;
+  top: 11px;
   cursor: pointer;
 }
 

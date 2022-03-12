@@ -4,6 +4,7 @@ import FirebaseContext from '../../context/firebase'
 import firebase from 'firebase/compat/app'
 import { isUserExist } from '../../utils/firebase.js'
 import UserContext from '../../context/user'
+import './loginModal.style.css'
 
 const LoginModal = () => {
   const history = useHistory()
@@ -123,9 +124,9 @@ const LoginModal = () => {
 
   return (
     <div className='authCard'>
-      <h2>Sign up or Login</h2>
-      {error && <p className='errorMsg'>{error}</p>}
-      {success && <p className='successMsg'>{success}</p>}
+      <h1 className='loginH1'>Signup or Login</h1>
+      <hr />
+
       {show ? (
         <>
           <div className='form-group'>
@@ -172,7 +173,8 @@ const LoginModal = () => {
           </button>
         </>
       )}
-
+      {error && <p className='errorMsg'>{error}</p>}
+      {success && <p className='successMsg'>{success}</p>}
       <div id='recaptcha'></div>
     </div>
   )

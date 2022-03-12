@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Nav from './component/Nav'
 import Footer from './component/Footer'
-import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
@@ -37,7 +36,6 @@ function App() {
         <Route exact path='/'>
           <HomePage isModal={isModal} setIsModal={setIsModal} />
         </Route>
-        <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <ProtectedRoute setIsModal={null} user={user} path='/search' exact>
           <Search />
