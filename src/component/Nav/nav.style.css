@@ -29,7 +29,14 @@ ul .nav-item {
 }
 
 .nav-item:hover {
-  background-color: rgba(128, 128, 128, 0.432);
+  /* background-color: rgba(128, 128, 128, 0.432); */
+  color: blueviolet;
+}
+
+.nav .nav-item.bottomBorder {
+  border-bottom: 4px solid blueviolet;
+  color: blueviolet;
+  padding-bottom: 14px;
 }
 
 div.logo {
@@ -41,12 +48,86 @@ div.logo {
 }
 
 .btnNav {
-  background-color: blue;
+  background-color: blueviolet;
   color: white;
-  padding: 10px 33px;
+  width: 111px;
+  padding: 10px 0px;
+  font-size: 1.8rem;
   border-radius: 27px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.btnNav:hover {
+  letter-spacing: 2px;
 }
 
 .logo img {
   width: 200px;
+}
+
+.navUser {
+  font-size: 1.8rem;
+  font-weight: 500;
+  position: relative;
+  cursor: pointer;
+}
+.navUser svg {
+  font-size: 2.2rem;
+  color: rgb(82, 82, 82);
+}
+
+.navUserDiv {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.navUser svg:nth-child(1) {
+  margin-right: 4px;
+}
+.navUser svg:nth-child(3) {
+  margin-left: 8px;
+}
+
+.overlayMenu {
+  padding: 10px 0 50px;
+  position: absolute;
+  width: 200px;
+  box-shadow: 0 0 18px #3535353b;
+  /* min-height: 230px; */
+  background-color: white;
+  top: 35px;
+  border-radius: 6px;
+  border: 1px solid rgb(212, 212, 212);
+}
+
+.overlayMenu > * {
+  padding: 8px 0 8px 20px;
+}
+
+.overlayMenu a {
+  display: block;
+  margin-left: -0.5px;
+}
+
+.overlayMenu a:hover {
+  background-color: bisque;
+}
+.overlayMenu .bgActive {
+  /* border-color: blueviolet; */
+  border-left: 5px solid blueviolet;
+  padding-left: 15px;
+  background-color: rgb(221, 221, 221) !important;
+}
+
+.overlayMenu .btnLogout {
+  transition: all 0.3s ease-in-out;
+  border-top: 1px solid rgb(202, 202, 202);
+  margin-top: 11px;
+}
+.overlayMenu .btnLogout:hover {
+  letter-spacing: 2px;
+  color: blueviolet;
 }

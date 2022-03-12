@@ -1,0 +1,29 @@
+.editAddBody form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+}
+
+.formCardBox {
+  width: 100%;
+  padding: 20px 40px 40px;
+  box-shadow: 2px 2px 6px rgba(48, 48, 48, 0.808);
+  margin: 20px auto;
+  border-radius: 7px;
+}
+
+.formCardBox input,
+.formCardBox textarea {
+  width: 100%;
+}
+
+.formCardBox textarea {
+  padding: 10px;
+}
+
+.siblingGroup .triple select {
+  width: 31%;
+}

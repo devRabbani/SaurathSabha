@@ -1,0 +1,169 @@
+.planCard {
+  padding: 50px 20px 23px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.33);
+  position: relative;
+  margin: 0 15px 30px;
+  width: 20%;
+  max-width: 500px;
+  min-width: 270px;
+  text-align: center;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 40px 40px 10px 10px;
+  cursor: pointer;
+}
+
+.planName {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  border-radius: 40px 40px 0 0;
+  background-color: rgb(66, 127, 219);
+  color: aliceblue;
+  font-size: 1.8rem;
+  padding: 7px;
+}
+
+.planWrapper {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.planPrice {
+  font-size: 1.8rem;
+  color: rgb(235, 75, 75);
+  font-weight: 600;
+}
+
+.planCard ul {
+  list-style: disc;
+  text-align: left;
+  font-size: 1.5rem;
+  padding: 15px 20px;
+  margin: 10px auto;
+  border-top: 1px solid #707070;
+  border-bottom: 1px solid #707070;
+}
+.planCard ul li {
+  filter: opacity(0.2);
+}
+
+div.basic ul.frontUl li:nth-child(1) {
+  filter: opacity(1);
+}
+div.silver ul.frontUl li:nth-child(-n + 2) {
+  filter: opacity(1);
+}
+div.gold ul.frontUl li:nth-child(-n + 3) {
+  filter: opacity(1);
+}
+div.platinum ul.frontUl li:nth-child(-n + 4) {
+  filter: opacity(1);
+}
+div.personalised ul.frontUl li:nth-child(-n + 5) {
+  filter: opacity(1);
+}
+
+.planDuration {
+  font-size: 1.7rem;
+}
+
+.planBtnDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+}
+.viewPlan {
+  background-color: royalblue;
+  border: 2px solid royalblue;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  flex-basis: 35%;
+  transition: all 0.2s ease-in-out;
+}
+
+.viewPlan:hover {
+  background-color: rgb(29, 70, 196);
+  border: 2px solid rgb(29, 70, 196);
+}
+
+.planBtn {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: white;
+  border: 2px solid royalblue;
+  border-radius: 5px;
+
+  font-size: 1.6rem;
+  flex-basis: 60%;
+  transition: all 0.2s ease-in-out;
+}
+
+.planBtn:hover {
+  background-color: blueviolet;
+  color: white;
+  border-color: blueviolet;
+}
+
+.planCard:hover {
+  transform: scale(0.99);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.185);
+}
+
+div.basic {
+  border: 3px solid rgb(167, 167, 167);
+}
+div.silver {
+  border: 3px solid royalblue;
+}
+div.gold {
+  border: 3px solid rgb(206, 185, 0);
+}
+div.platinum {
+  border: 3px solid rgb(4, 211, 66);
+}
+div.personalised {
+  border: 3px solid violet;
+}
+
+/* .gold .planName {
+  background-color: rgb(206, 185, 0);
+}
+.platinum .planName {
+  background-color: rgb(4, 211, 66);
+}
+.personalised .planName {
+  background-color: violet;
+}
+.basic .planName {
+  background-color: rgb(167, 167, 167);
+} */
+
+ul.detailedUl {
+  list-style: none;
+  padding-left: 5px;
+}
+ul.detailedUl li {
+  display: flex;
+  align-items: center;
+  color: red;
+  margin: 3px 0;
+}
+
+ul.detailedUl li svg {
+  margin-right: 7px;
+}
+
+ul.detailedUl li.showTick {
+  filter: opacity(1);
+  color: green;
+}

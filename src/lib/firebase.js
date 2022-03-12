@@ -4,13 +4,13 @@ import 'firebase/compat/storage'
 import 'firebase/compat/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBs9KGqgDTeEkkR47xzTxik5OZDYn_TS4w',
-  authDomain: 'saurathshabha.firebaseapp.com',
-  projectId: 'saurathshabha',
-  storageBucket: 'saurathshabha.appspot.com',
-  messagingSenderId: '250460257995',
-  appId: '1:250460257995:web:e2ff8d254407d0ef1c654e',
-  measurementId: 'G-1DV87YZJVC',
+  apiKey: 'AIzaSyDVjqiQFDpX-JtKp2IJEkY1hm4uUKGgBg8',
+  authDomain: 'saurathsabhaapp.firebaseapp.com',
+  projectId: 'saurathsabhaapp',
+  storageBucket: 'saurathsabhaapp.appspot.com',
+  messagingSenderId: '192070348940',
+  appId: '1:192070348940:web:bd9d32955f23998a900ba9',
+  measurementId: '${config.measurementId}',
 }
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig)
