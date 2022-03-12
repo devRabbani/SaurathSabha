@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import About from '../../component/About'
 import Featured from '../../component/Featured'
@@ -16,6 +17,7 @@ import { getUserByUid } from '../../utils/firebase'
 const HomePage = ({ isModal, setIsModal }) => {
   const { user } = useContext(UserContext)
   const location = useLocation()
+  const history = useHistory()
   useEffect(() => {
     if (isModal) {
       document.body.style.overflowY = 'hidden'
@@ -23,8 +25,10 @@ const HomePage = ({ isModal, setIsModal }) => {
       document.body.style.overflowY = 'unset'
     }
   }, [isModal])
+
+  console.log(history.action, history)
   useEffect(() => {
-    if (location?.state) {
+    if (location?.state && history?.action === 'REPLACE') {
       setIsModal(location.state)
     }
   }, [location])

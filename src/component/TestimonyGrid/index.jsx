@@ -49,8 +49,8 @@ const TestimonyGrid = () => {
         <h3 className='sectionHeading'>Testimony</h3>
         <p className='testimonyHeader'>What do people feel about us??</p>
         <div className='testimonial-grid'>
-          {data.map((item) => (
-            <article className='testimonial flow'>
+          {data.map((item, i) => (
+            <article key={i} className='testimonial flow'>
               <div className='nameImgDiv'>
                 <img src={male} alt='Kira Whittle' />
                 <h2 className='name'>{item.name}</h2>

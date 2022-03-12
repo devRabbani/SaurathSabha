@@ -16,6 +16,7 @@ import Plans from './pages/plans'
 import Modal from './component/Modal'
 import LoginModal from './component/LoginModal'
 import ModalPage from './pages/ModalPage'
+import ModalContext from './context/modal'
 
 function App() {
   const { user } = useAuthListener()
@@ -28,55 +29,64 @@ function App() {
   //     document.body.style.overflowY = 'unset'
   //   }
   // }, [isModal])
+  useEffect(() => {
+    if (isModal) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = 'unset'
+    }
+  }, [isModal])
 
   return (
     <UserContext.Provider value={{ user }}>
-      <Nav setIsModal={setIsModal} user={user} />
-      <Switch>
-        <Route exact path='/'>
-          <HomePage isModal={isModal} setIsModal={setIsModal} />
-        </Route>
-        <Route exact path='/signup' component={Signup} />
-        <ProtectedRoute setIsModal={null} user={user} path='/search' exact>
-          <Search />
-        </ProtectedRoute>
-        <ProtectedRoute
-          setIsModal={null}
-          user={user}
-          exact
-          path='/profile/:uid'
-        >
-          <Profile />
-        </ProtectedRoute>
-        <ProtectedRoute
-          setIsModal={null}
-          user={user}
-          exact
-          path='/edit/profile'
-        >
-          <EditProfile />
-        </ProtectedRoute>
-        <ProtectedRoute
-          setIsModal={null}
-          user={user}
-          exact
-          path='/edit/additional'
-        >
-          <EditAdditional />
-        </ProtectedRoute>
-        <ProtectedRoute exact setIsModal={null} user={user} path='/favourite'>
-          <Connection />
-        </ProtectedRoute>
-        <ProtectedRoute setIsModal={null} user={user} path='/plans'>
-          <Plans />
-        </ProtectedRoute>
-      </Switch>
-      <Footer />
-      {/* {isModal && (
+      <ModalContext.Provider value={{ isModal, setIsModal }}>
+        <Nav setIsModal={setIsModal} user={user} />
+        <Switch>
+          <Route exact path='/'>
+            <HomePage isModal={isModal} setIsModal={setIsModal} />
+          </Route>
+          <Route exact path='/signup' component={Signup} />
+          <ProtectedRoute setIsModal={null} user={user} path='/search' exact>
+            <Search />
+          </ProtectedRoute>
+          <ProtectedRoute
+            setIsModal={null}
+            user={user}
+            exact
+            path='/profile/:uid'
+          >
+            <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute
+            setIsModal={null}
+            user={user}
+            exact
+            path='/edit/profile'
+          >
+            <EditProfile />
+          </ProtectedRoute>
+          <ProtectedRoute
+            setIsModal={null}
+            user={user}
+            exact
+            path='/edit/additional'
+          >
+            <EditAdditional />
+          </ProtectedRoute>
+          <ProtectedRoute exact setIsModal={null} user={user} path='/favourite'>
+            <Connection />
+          </ProtectedRoute>
+          <ProtectedRoute setIsModal={null} user={user} path='/plans'>
+            <Plans />
+          </ProtectedRoute>
+        </Switch>
+        <Footer />
+        {/* {isModal && (
         <Modal setIsModal={setIsModal}>
           <LoginModal />
         </Modal>
       )} */}
+      </ModalContext.Provider>
     </UserContext.Provider>
   )
 }
