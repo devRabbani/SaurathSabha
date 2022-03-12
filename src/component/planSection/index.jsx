@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaCheck, FaTimes, FaCertificate } from 'react-icons/fa'
+import { FaCheck, FaTimes, FaAward, FaArrowRight } from 'react-icons/fa'
 import './planSection.style.css'
 const PlanSection = () => {
   return (
@@ -33,7 +33,7 @@ const PlanSection = () => {
         </div>
         <div className='planSectionCard big'>
           <div className='popular'>
-            <FaCertificate />
+            <FaAward />
             Popular
           </div>
           <h3>Gold</h3>
@@ -90,7 +90,7 @@ const PlanSection = () => {
         </div>
       </div>
       <Link className='planReferBtn' to='/plans'>
-        See Full Plan List
+        See Full Plan List <FaArrowRight className='arrowSvg' />
       </Link>
     </section>
   )

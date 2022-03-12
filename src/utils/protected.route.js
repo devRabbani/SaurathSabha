@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
-const ProtectedRoute = ({ user, children, setIsModal, ...rest }) => {
+const ProtectedRoute = ({ user, children, setIsModal, pathname, ...rest }) => {
   return (
     <>
       {console.count('Run from pro')}
@@ -13,7 +13,11 @@ const ProtectedRoute = ({ user, children, setIsModal, ...rest }) => {
           } else {
             // setIsModal(true)
 
-            return <Redirect to={{ pathname: '/', state: true }} />
+            return (
+              <Redirect
+                to={{ pathname: '/', state: { modal: true, pathname } }}
+              />
+            )
           }
         }}
       />

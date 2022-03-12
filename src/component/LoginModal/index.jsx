@@ -9,6 +9,7 @@ import ModalContext from '../../context/modal'
 
 const LoginModal = () => {
   const history = useHistory()
+
   const { firebaseApp } = useContext(FirebaseContext)
 
   const [number, setNumber] = useState('')
@@ -96,17 +97,19 @@ const LoginModal = () => {
         if (isNew) {
           setIsModal(false)
           history.push({
-            pathname: '/signup',
-            state: { phoneNo: number, uid: result.user.uid },
+            pathname: history.location.state.pathname,
+            state: {
+              phoneNo: number,
+              uid: result.user.uid,
+              pathname: history.location.state.pathname,
+            },
           })
-          console.log(result.user)
-          console.log('history push')
         } else {
           console.log(result.user)
           setIsLoading(false)
           setIsModal(false)
-          history.push(`/profile/${result.user.uid}`)
           console.log('Success from user signin')
+          history.push(history.location.state.pathname)
         }
       })
       .catch((err) => {

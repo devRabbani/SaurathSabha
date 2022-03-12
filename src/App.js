@@ -29,13 +29,6 @@ function App() {
   //     document.body.style.overflowY = 'unset'
   //   }
   // }, [isModal])
-  useEffect(() => {
-    if (isModal) {
-      document.body.style.overflowY = 'hidden'
-    } else {
-      document.body.style.overflowY = 'unset'
-    }
-  }, [isModal])
 
   return (
     <UserContext.Provider value={{ user }}>
@@ -46,7 +39,13 @@ function App() {
             <HomePage isModal={isModal} setIsModal={setIsModal} />
           </Route>
           <Route exact path='/signup' component={Signup} />
-          <ProtectedRoute setIsModal={null} user={user} path='/search' exact>
+          <ProtectedRoute
+            setIsModal={null}
+            user={user}
+            path='/search'
+            exact
+            pathname='/search'
+          >
             <Search />
           </ProtectedRoute>
           <ProtectedRoute
@@ -54,6 +53,7 @@ function App() {
             user={user}
             exact
             path='/profile/:uid'
+            pathname='/profile/:uid'
           >
             <Profile />
           </ProtectedRoute>
@@ -62,6 +62,7 @@ function App() {
             user={user}
             exact
             path='/edit/profile'
+            pathname='/edit/profile'
           >
             <EditProfile />
           </ProtectedRoute>
@@ -70,13 +71,25 @@ function App() {
             user={user}
             exact
             path='/edit/additional'
+            pathname='/edit/additional'
           >
             <EditAdditional />
           </ProtectedRoute>
-          <ProtectedRoute exact setIsModal={null} user={user} path='/favourite'>
+          <ProtectedRoute
+            exact
+            setIsModal={null}
+            user={user}
+            path='/favourite'
+            pathname='/favourite'
+          >
             <Connection />
           </ProtectedRoute>
-          <ProtectedRoute setIsModal={null} user={user} path='/plans'>
+          <ProtectedRoute
+            setIsModal={null}
+            user={user}
+            path='/plans'
+            pathname='/plans'
+          >
             <Plans />
           </ProtectedRoute>
         </Switch>
