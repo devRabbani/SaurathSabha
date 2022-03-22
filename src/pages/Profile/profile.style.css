@@ -1,14 +1,27 @@
+.profile {
+  padding-bottom: 55px;
+  background-color: antiquewhite;
+}
+
 .profileWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
   align-items: center;
+  box-shadow: 3px 5px 20px -4px #00000030;
+  padding: 40px 40px;
+  border: 2px solid aliceblue;
+  width: 70%;
+  margin: 35px auto 10px;
+  border-radius: 7px;
 }
 .rightSide {
   margin-left: 40px;
 }
 .profileWrapper img {
-  width: 160px;
+  width: 165px;
+  height: 165px;
+  border-radius: 50%;
+  border: 5px darkgray outset;
 }
 
 .profileWrapper p {

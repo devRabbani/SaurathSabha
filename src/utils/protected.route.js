@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
-const ProtectedRoute = ({ user, children, setIsModal, pathname, ...rest }) => {
+const ProtectedRoute = ({ user, children, pathname, ...rest }) => {
   return (
     <>
       {console.count('Run from pro')}
