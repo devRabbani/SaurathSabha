@@ -80,7 +80,7 @@ const Nav = ({ user, setIsModal }) => {
             <div className='navUserDiv' onClick={handleMenu}>
               <FaUserCircle />
               <p>
-                {user.displayName.length > 0 ? user.displayName : 'User Name'}
+                {user.displayName?.length > 0 ? user.displayName : 'User Name'}
               </p>
               {/* {isMenu ? <FaChevronUp /> : <FaChevronDown />} */}
 

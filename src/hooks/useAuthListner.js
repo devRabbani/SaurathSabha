@@ -8,10 +8,13 @@ export default function useAuthListener() {
     const listner = firebaseApp.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
         //have authUser and set localstorage
-        if (!user) {
-          localStorage.setItem('authUser', JSON.stringify(authUser))
-          setUser(authUser)
-        }
+        // if (!user) {
+        //   localStorage.setItem('authUser', JSON.stringify(authUser))
+        //   setUser(authUser)
+        // }
+
+        localStorage.setItem('authUser', JSON.stringify(authUser))
+        setUser(authUser)
       } else {
         //not have authuser remove from localstorage
         localStorage.removeItem('authUser')
