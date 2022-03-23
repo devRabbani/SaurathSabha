@@ -84,7 +84,7 @@ const Nav = ({ user, setIsModal }) => {
               </p>
               {/* {isMenu ? <FaChevronUp /> : <FaChevronDown />} */}
 
-              <FaChevronUp className={isMenu && 'tick'} />
+              <FaChevronDown className={isMenu && 'tick'} />
             </div>
             {isMenu && (
               <div className='overlayMenu'>

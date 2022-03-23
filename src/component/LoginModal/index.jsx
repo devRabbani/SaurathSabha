@@ -97,11 +97,10 @@ const LoginModal = () => {
         if (isNew) {
           setIsModal(false)
           history.push({
-            pathname: history.location.state.pathname,
+            pathname: '/signup',
             state: {
               phoneNo: number,
               uid: result.user.uid,
-              pathname: history.location.state.pathname,
             },
           })
         } else {
@@ -109,6 +108,7 @@ const LoginModal = () => {
           setIsLoading(false)
           setIsModal(false)
           console.log('Success from user signin')
+
           history.push(history.location.state.pathname)
         }
       })
