@@ -1,3 +1,7 @@
+.heroSectionWrapper {
+  position: relative;
+}
+
 .heroSection {
   display: flex;
   justify-content: space-between;

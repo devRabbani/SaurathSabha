@@ -272,7 +272,7 @@ export const addAdditionalData = async (uid, data) => {
     .collection('additional')
     .add({
       ...data,
-      uid,
+      userId: uid,
     })
 }
 
@@ -312,12 +312,48 @@ export const fetchAdditionalData = async (uid) => {
   const result = await firebaseApp
     .firestore()
     .collection('additional')
-    .where('uid', '==', uid)
+    .where('userId', '==', uid)
     .get()
 
   if (!result.empty) {
     return result.docs[0].data()
   } else {
-    return []
+    return
+  }
+}
+
+export const addAdditionalFile = async (uid, url) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('users')
+    .where('userId', '==', uid)
+    .get()
+
+  if (!result.empty) {
+    result.docs[0].ref.set(
+      {
+        additonalFileUrl: url,
+      },
+      {
+        merge: true,
+      }
+    )
+    console.log('Update Done')
+  } else {
+    console.log('Not found any uid')
+  }
+}
+
+export const getProfilePic = async (uid) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('users')
+    .where('userId', '==', uid)
+    .get()
+
+  if (!result.empty) {
+    return result.docs[0].data().profileUrl
+  } else {
+    return ''
   }
 }

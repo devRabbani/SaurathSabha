@@ -108,6 +108,7 @@ const LoginModal = () => {
           setIsLoading(false)
           setIsModal(false)
           console.log('Success from user signin')
+
           history.push(history.location.state.pathname)
         }
       })

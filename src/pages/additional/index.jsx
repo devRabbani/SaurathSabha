@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import EducationInfo from '../../component/EducationInfo'
 import ExpectationInfo from '../../component/ExpectationInfo'
 import FamilyInfo from '../../component/FamilyInfo'
 import MyselfInfo from '../../component/MyselfInfo'
 import ProfilePhotoUpload from '../../component/ProfilePhotoUpload'
+import UploadProfileFile from '../../component/UploadProfileFile'
+import UserContext from '../../context/user'
+import { fetchAdditionalData } from '../../utils/firebase'
 import './additional.style.css'
 
 const headingdata = [
@@ -39,6 +43,10 @@ const Additional = () => {
   })
   const [page, setPage] = useState(0)
   const [photoUpld, setPhotoUpld] = useState(false)
+  const [isManual, setIsManual] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { user } = useContext(UserContext)
   const {
     bio,
     highestQual,
@@ -123,24 +131,57 @@ const Additional = () => {
     }
   }
 
+  // Side Effect
+  useEffect(() => {
+    // If Editing User
+    const fetchEditingData = async () => {
+      setIsLoading(true)
+      const result = await fetchAdditionalData(user?.uid)
+      if (result) {
+        setAdditionalData(result)
+        console.log('User is editing')
+      }
+      setIsLoading(false)
+    }
+    fetchEditingData()
+  }, [])
+
   return (
     <div className='additional'>
       <div className='container additionalWrapper'>
-        <h1 className='additionalH1'>
-          {photoUpld
-            ? 'For Strong Account Upload Your Profile Picture'
-            : headingdata[page]}
-        </h1>
-
-        {!photoUpld ? (
-          <>
-            <div className='progress'>
-              <p>Step {page + 1} of 4</p>
-            </div>
-            <form>{handlePage()}</form>
-          </>
+        {isManual ? (
+          <div className='waitIsManual'>
+            <p>
+              You succesfull uploaded , please wait for our backend team to
+              update your your profile
+            </p>
+            <Link to='/'>Got to Home</Link>
+          </div>
         ) : (
-          <ProfilePhotoUpload data={additionalData} />
+          <>
+            {page === 0 && (
+              <UploadProfileFile uid={user?.uid} setIsManual={setIsManual} />
+            )}
+            <h1 className='additionalH1'>
+              {photoUpld
+                ? 'For Strong Account Upload Your Profile Picture'
+                : headingdata[page]}
+            </h1>
+            {!photoUpld ? (
+              isLoading ? (
+                <p className='loadingEditing'>Loading Data...</p>
+              ) : (
+                <>
+                  <div className='progress'>
+                    <p>Step {page + 1} of 4</p>
+                  </div>
+                  <form>{handlePage()}</form>
+                </>
+              )
+            ) : (
+              <ProfilePhotoUpload data={additionalData} uid={user?.uid} />
+            )}
+          </>
         )}
       </div>
     </div>

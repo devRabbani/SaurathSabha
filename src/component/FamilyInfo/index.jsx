@@ -82,7 +82,7 @@ const FamilyInfo = ({
       </div>
       <div className='form-group'>
         <label className='text-muted'>How many sibblings :</label>
-        <select onChange={handleChange} name='siblings'>
+        <select value={siblings} onChange={handleChange} name='siblings'>
           <option value='0'>Only me</option>
           <option value='1'>1</option>
           <option value='2'>2</option>
