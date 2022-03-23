@@ -85,18 +85,20 @@ const Plans = () => {
   }
 
   return (
-    <div className='container pageBody'>
-      <h1 className='pageHeading'>Plans</h1>
-      <div className='planWrapper'>
-        {plansList.map((item, i) => (
-          <PlanCard
-            key={i}
-            item={item}
-            selected={selected}
-            no={i}
-            handleSelect={handleSelect}
-          />
-        ))}
+    <div className='planPage'>
+      <div className='container pageBody'>
+        <h1 className='pageHeading'>Plans</h1>
+        <div className='planWrapper'>
+          {plansList.map((item, i) => (
+            <PlanCard
+              key={i}
+              item={item}
+              selected={selected}
+              no={i}
+              handleSelect={handleSelect}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

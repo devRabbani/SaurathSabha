@@ -11,6 +11,14 @@ import {
   FaChevronUp,
   FaRegBell,
   FaUserCircle,
+  FaRupeeSign,
+  FaSearch,
+  FaHouseUser,
+  FaHeart,
+  FaHome,
+  FaUserAlt,
+  FaSignOutAlt,
+  FaSignInAlt,
 } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
@@ -40,7 +48,7 @@ const Nav = ({ user, setIsModal }) => {
               activeClassName='bottomBorder'
               to='/'
             >
-              Home
+              <FaHome /> Home
             </NavLink>
           </li>
 
@@ -51,7 +59,7 @@ const Nav = ({ user, setIsModal }) => {
               className='nav-item'
               to='/search'
             >
-              Search
+              <FaSearch /> Search
             </NavLink>
           </li>
 
@@ -62,7 +70,7 @@ const Nav = ({ user, setIsModal }) => {
               className='nav-item'
               to='/plans'
             >
-              Plans
+              <FaRupeeSign /> Plans
             </NavLink>
           </li>
         </ul>
@@ -72,9 +80,11 @@ const Nav = ({ user, setIsModal }) => {
             <div className='navUserDiv' onClick={handleMenu}>
               <FaUserCircle />
               <p>
-                {user.displayName.length > 0 ? user.displayName : 'User Name'}
+                {user.displayName?.length > 0 ? user.displayName : 'User Name'}
               </p>
-              {isMenu ? <FaChevronUp /> : <FaChevronDown />}
+              {/* {isMenu ? <FaChevronUp /> : <FaChevronDown />} */}
+
+              <FaChevronDown className={isMenu && 'tick'} />
             </div>
             {isMenu && (
               <div className='overlayMenu'>
@@ -82,29 +92,29 @@ const Nav = ({ user, setIsModal }) => {
                   activeClassName='bgActive'
                   to={`/profile/${user && user.uid}`}
                 >
-                  My Profile
+                  <FaUserAlt /> My Profile
                 </NavLink>
 
                 <NavLink activeClassName='bgActive' to={`/notification`}>
-                  Notification
+                  <FaBell /> Notification
                 </NavLink>
 
                 <NavLink activeClassName='bgActive' to={`/favourite`}>
-                  Favourite
+                  <FaHeart /> Favourite
                 </NavLink>
 
                 <div
                   className='btnLogout'
                   onClick={() => firebaseApp.auth().signOut()}
                 >
-                  Logout
+                  <FaSignOutAlt /> Logout
                 </div>
               </div>
             )}
           </div>
         ) : (
           <button onClick={() => setIsModal(true)} className='btnNav'>
-            Login
+            <FaSignInAlt /> Login
           </button>
         )}
       </div>

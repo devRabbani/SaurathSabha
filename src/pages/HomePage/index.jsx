@@ -28,12 +28,11 @@ const HomePage = ({ isModal, setIsModal }) => {
 
   console.log(history.action, history)
   useEffect(() => {
-    if (location?.state && history?.action === 'REPLACE') {
-      setIsModal(location.state)
+    if (location?.state?.modal && history?.action === 'REPLACE') {
+      setIsModal(location.state.modal)
     }
   }, [location])
 
-  console.log(`isModal : ${isModal}, Location : ${location?.state}`)
   // useEffect(() => {
   //   const result = getUserByUid(user.uid)
   //   console.log(result)
