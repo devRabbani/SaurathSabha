@@ -1,6 +1,51 @@
-.filterDiv {
+.filterWrapper,
+.searchDiv {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.filterWrapper select {
+  padding: 8px 20px;
+  font-size: 1.7rem;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.searchDiv p {
+  font-size: 1.4rem;
+}
+
+.btnSearch {
+  padding: 8px 0;
+  background-color: rgb(55, 9, 221);
+  border: none;
+  font-size: 1.7rem;
+  width: 100px;
+  color: white;
+  border-radius: 4px;
+  border-bottom: 2px solid rgb(0, 0, 161);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btnSearch:hover {
+  background-color: rgb(90, 9, 221);
+}
+
+.searchWrapper .loading {
+  font-size: 3rem;
+  opacity: 0.7;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.searchWrapper .noUsers {
+  font-size: 2.6rem;
+  opacity: 0.7;
+  margin-top: 70px;
+  color: brown;
+  text-align: center;
 }

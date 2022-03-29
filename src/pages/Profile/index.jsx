@@ -17,6 +17,7 @@ const Profile = () => {
   const { user } = useContext(UserContext)
   // const [profileData, setProfileData] = useState(null)
   const profileData = useUser()
+  const isOwn = uid === user?.uid
 
   const fetchData = async () => {
     const result = await fetchAdditionalData(uid)
@@ -93,9 +94,7 @@ const Profile = () => {
         `Profile Data ${profileData},additional data ${additionalData}`
       )}
       <div className='container'>
-        <h1 className='pageHeading'>
-          {uid === user?.uid ? 'My Profile' : 'Profile'}
-        </h1>
+        <h1 className='pageHeading'>{isOwn ? 'My Profile' : 'Profile'}</h1>
         {profileData && (
           <div>
             <div className='profileWrapper'>
@@ -142,9 +141,12 @@ const Profile = () => {
                         {item}
                       </div>
                     ))}
-                    <Link className='menu' to='/additional'>
-                      Edit Profile
-                    </Link>
+                    {isOwn && (
+                      <Link className='menu' to='/additional'>
+                        Edit Profile
+                      </Link>
+                    )}
+
                     {/* <div className='menu active'>Education and Career</div>
                     <div className='menu'>Family Background</div>
                     <div className='menu'>About Me</div> */}
