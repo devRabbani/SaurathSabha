@@ -174,11 +174,43 @@
 
 p.myBio {
   max-width: 1000px;
-  margin: -10px 0 20px;
+  margin-top: -10px;
   color: blueviolet;
 }
 
 a.menu {
   margin-left: auto;
   color: #9a0000;
+}
+h2.aboutBioH2 {
+  margin: 10px 0 -10px;
+}
+
+.socialIconsWrapper {
+  font-size: 2.8rem;
+  margin-left: 6px;
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.socialIconsWrapper a {
+  transition: all 0.3s;
+}
+
+.socialIconsWrapper a.fb:hover {
+  color: #1877f2;
+}
+.socialIconsWrapper a.insta:hover {
+  color: #e4405f;
+}
+.socialIconsWrapper a.twitter:hover {
+  color: #1da1f2;
+}
+.socialIconsWrapper a.linkedin:hover {
+  color: #0a66c2;
+}
+.socialIconsWrapper a.email:hover {
+  color: #bb001b;
 }

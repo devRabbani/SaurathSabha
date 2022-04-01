@@ -4,6 +4,13 @@ import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import useUser from '../../hooks/useUser'
 import { fetchAdditionalData, getAddionalData } from '../../utils/firebase'
+import {
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaInstagram,
+  FaEnvelope,
+} from 'react-icons/fa'
 import './profile.style.css'
 
 const Profile = () => {
@@ -61,13 +68,8 @@ const Profile = () => {
     } else {
       return (
         <>
-          <p className='myBio'>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, dolor
-            voluptate. Esse voluptatum a doloremque consequuntur vel rerum
-            itaque. Eligendi ipsam asperiores consequatur placeat esse itaque
-            aliquid qui tempore ea.
-          </p>
-          <h2>Hobies and Others :</h2>
+          <p className='myBio'>{additionalData.bio}</p>
+          <h2 className='aboutBioH2'>Hobies and Others :</h2>
           <p>
             <strong>Hobbies : </strong>
             {additionalData.hobbies},
@@ -79,6 +81,81 @@ const Profile = () => {
             {additionalData.isAlcoholic?.toUpperCase()} ,
             <br />
           </p>
+
+          {(additionalData.videolink === '' ||
+            additionalData.facebook === '' ||
+            additionalData.instagram === '' ||
+            additionalData.linkedin === '' ||
+            additionalData.twitter === '' ||
+            additionalData.email) && (
+            <h2 className='aboutBioH2'>Social Links :</h2>
+          )}
+
+          {additionalData.videolink && (
+            <p>
+              <strong>Video Profile Link : </strong>{' '}
+              <a
+                href={additionalData.videolink}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Go To Video Link
+              </a>
+            </p>
+          )}
+
+          <div className='socialIconsWrapper'>
+            {additionalData.facebook && (
+              <a
+                href={additionalData.facebook}
+                className='fb'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaFacebook />
+              </a>
+            )}
+            {additionalData.twitter && (
+              <a
+                href={additionalData.twitter}
+                className='twitter'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaTwitter />
+              </a>
+            )}
+            {additionalData.instagram && (
+              <a
+                href={additionalData.instagram}
+                className='insta'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaInstagram />
+              </a>
+            )}
+            {additionalData.linkedin && (
+              <a
+                href={additionalData.linkedin}
+                className='linkedin'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaLinkedin />
+              </a>
+            )}
+            {additionalData.email && (
+              <a
+                href={additionalData.email}
+                target='_blank'
+                className='email'
+                rel='noopener noreferrer'
+              >
+                <FaEnvelope />
+              </a>
+            )}
+          </div>
         </>
       )
     }

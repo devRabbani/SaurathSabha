@@ -62,7 +62,7 @@ const ExpectationInfo = ({
         />
       </div>
       <div className='btnDiv'>
-        <button className='btn' onClick={() => setPage(2)}>
+        <button className='btn' onClick={() => setPage(3)}>
           Prev
         </button>
         <button onClick={() => setPhotoUpld(true)} className='btn'>
