@@ -357,3 +357,73 @@ export const getProfilePic = async (uid) => {
     return ''
   }
 }
+
+export const isServiceExist = async (number) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('serviceProvider')
+    .where('number', '==', number)
+    .get()
+  return result.docs.length !== 0
+}
+
+export const createServiceProvider = async (data) => {
+  await firebaseApp.firestore().collection('serviceProvider').add(data)
+}
+
+// Fetching all search Data
+export const fetchAllUsers = async (uid) => {
+  const data = await firebaseApp
+    .firestore()
+    .collection('users')
+    .where('userId', '!=', uid)
+    .get()
+  if (data.empty) {
+    return []
+  } else {
+    const result = data.docs.map((item) => item.data())
+    return result
+  }
+}
+
+// Fetching filter Data
+export const fetchFilterData = async (
+  age,
+  city,
+  employement,
+  profileFor,
+  gender,
+  uid
+) => {
+  let query = firebaseApp.firestore().collection('users')
+  // .where('userId', '!=', uid)
+  if (gender) {
+    query = query.where('gender', '==', gender)
+  }
+  if (employement) {
+    query = query.where('employement', '==', employement)
+  }
+  if (gender) {
+    query = query.where('gender', '==', gender)
+  }
+  if (profileFor) {
+    query = query.where('profileFor', '==', profileFor)
+  }
+  if (city) {
+    query = query.where('city', '==', city)
+  }
+  if (age) {
+    const [min, max] = age.split('-')
+    query = query.where('age', '>=', min)
+    query = query.where('age', '<=', max)
+  }
+
+  const data = await query.get()
+  if (!data.empty) {
+    const result = data.docs.map((item) => item.data())
+    console.log('Result', result)
+    return result
+  } else {
+    return []
+  }
+}

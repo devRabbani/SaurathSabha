@@ -5,6 +5,7 @@ const MyselfInfo = ({
   isAlcoholic,
   handleChange,
   setPage,
+  videolink,
 }) => {
   const invalid = bio === '' || hobbies === ''
 
@@ -51,6 +52,17 @@ const MyselfInfo = ({
             <option value='yes'>Yes</option>
           </select>
         </div>
+      </div>
+      <div className='form-group'>
+        <label className='text-muted'>Your Video Profile Link :</label>
+        <input
+          type='text'
+          onChange={handleChange}
+          name='videolink'
+          value={videolink}
+          placeholder='Paste your link to your video'
+          className='form-control'
+        />
       </div>
       <div className='btnDiv'>
         <button onClick={() => setPage(1)} className='btn'>

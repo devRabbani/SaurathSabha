@@ -18,6 +18,7 @@ import LoginModal from './component/LoginModal'
 import ModalPage from './pages/ModalPage'
 import ModalContext from './context/modal'
 import Additional from './pages/additional'
+import ServiceRegister from './pages/serviceRegister'
 
 function App() {
   const { user } = useAuthListener()
@@ -41,6 +42,7 @@ function App() {
               <HomePage isModal={isModal} setIsModal={setIsModal} />
             </Route>
             <Route exact path='/signup' component={Signup} />
+            <Route exact path='/service/register' component={ServiceRegister} />
             <ProtectedRoute user={user} path='/search' exact pathname='/search'>
               <Search />
             </ProtectedRoute>

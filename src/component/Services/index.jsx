@@ -2,6 +2,7 @@ import React from 'react'
 import './services.style.css'
 import Button from '../Button'
 import serviceImg from '../../assets/wedding.svg'
+import { Link } from 'react-router-dom'
 const Services = () => {
   return (
     <section className='service'>
@@ -20,7 +21,9 @@ const Services = () => {
             aperiam laboriosam dolores, sed asperiores in, quae expedita eius
             veniam facilis incidunt saepe?
           </p>
-          <Button ring>Register Now</Button>
+          <Link to='/service/register'>
+            <Button ring>Register Now</Button>
+          </Link>
         </div>
       </div>
     </section>

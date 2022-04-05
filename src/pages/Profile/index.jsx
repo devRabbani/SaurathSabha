@@ -4,6 +4,13 @@ import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import useUser from '../../hooks/useUser'
 import { fetchAdditionalData, getAddionalData } from '../../utils/firebase'
+import {
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaInstagram,
+  FaEnvelope,
+} from 'react-icons/fa'
 import './profile.style.css'
 
 const Profile = () => {
@@ -17,6 +24,7 @@ const Profile = () => {
   const { user } = useContext(UserContext)
   // const [profileData, setProfileData] = useState(null)
   const profileData = useUser()
+  const isOwn = uid === user?.uid
 
   const fetchData = async () => {
     const result = await fetchAdditionalData(uid)
@@ -60,13 +68,8 @@ const Profile = () => {
     } else {
       return (
         <>
-          <p className='myBio'>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, dolor
-            voluptate. Esse voluptatum a doloremque consequuntur vel rerum
-            itaque. Eligendi ipsam asperiores consequatur placeat esse itaque
-            aliquid qui tempore ea.
-          </p>
-          <h2>Hobies and Others :</h2>
+          <p className='myBio'>{additionalData.bio}</p>
+          <h2 className='aboutBioH2'>Hobies and Others :</h2>
           <p>
             <strong>Hobbies : </strong>
             {additionalData.hobbies},
@@ -78,6 +81,81 @@ const Profile = () => {
             {additionalData.isAlcoholic?.toUpperCase()} ,
             <br />
           </p>
+
+          {(additionalData.videolink === '' ||
+            additionalData.facebook === '' ||
+            additionalData.instagram === '' ||
+            additionalData.linkedin === '' ||
+            additionalData.twitter === '' ||
+            additionalData.email) && (
+            <h2 className='aboutBioH2'>Social Links :</h2>
+          )}
+
+          {additionalData.videolink && (
+            <p>
+              <strong>Video Profile Link : </strong>{' '}
+              <a
+                href={additionalData.videolink}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Go To Video Link
+              </a>
+            </p>
+          )}
+
+          <div className='socialIconsWrapper'>
+            {additionalData.facebook && (
+              <a
+                href={additionalData.facebook}
+                className='fb'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaFacebook />
+              </a>
+            )}
+            {additionalData.twitter && (
+              <a
+                href={additionalData.twitter}
+                className='twitter'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaTwitter />
+              </a>
+            )}
+            {additionalData.instagram && (
+              <a
+                href={additionalData.instagram}
+                className='insta'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaInstagram />
+              </a>
+            )}
+            {additionalData.linkedin && (
+              <a
+                href={additionalData.linkedin}
+                className='linkedin'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FaLinkedin />
+              </a>
+            )}
+            {additionalData.email && (
+              <a
+                href={additionalData.email}
+                target='_blank'
+                className='email'
+                rel='noopener noreferrer'
+              >
+                <FaEnvelope />
+              </a>
+            )}
+          </div>
         </>
       )
     }
@@ -93,11 +171,9 @@ const Profile = () => {
         `Profile Data ${profileData},additional data ${additionalData}`
       )}
       <div className='container'>
-        <h1 className='pageHeading'>
-          {uid === user?.uid ? 'My Profile' : 'Profile'}
-        </h1>
+        <h1 className='pageHeading'>{isOwn ? 'My Profile' : 'Profile'}</h1>
         {profileData && (
-          <div>
+          <div className='mainProfileCard'>
             <div className='profileWrapper'>
               <img src={profileData.profileUrl} alt='Profile img' />
               <div className='rightSide'>
@@ -120,7 +196,7 @@ const Profile = () => {
               </div>
             </div>
             <div className='additionalInfo'>
-              <h1 className='pageHeading'>Additional Info</h1>
+              {/* <h1 className='pageHeading'>Additional Info</h1> */}
 
               {!additionalData ? (
                 <div className='noData'>
@@ -131,7 +207,7 @@ const Profile = () => {
                   <Link to='/additional'>Create Full Profile</Link>
                 </div>
               ) : (
-                <div>
+                <>
                   <div className='linksDiv'>
                     {menuTitles.map((item, i) => (
                       <div
@@ -142,34 +218,17 @@ const Profile = () => {
                         {item}
                       </div>
                     ))}
-                    <Link className='menu' to='/additional'>
-                      Edit Profile
-                    </Link>
-                    {/* <div className='menu active'>Education and Career</div>
-                    <div className='menu'>Family Background</div>
-                    <div className='menu'>About Me</div> */}
+                    {isOwn && (
+                      <Link className='menu' to='/additional'>
+                        Edit Profile
+                      </Link>
+                    )}
                   </div>
                   <div className='linkDetails'>
                     <h2>{menuTitles[menuPage]}</h2>
                     {renderInfoPage()}
                   </div>
-                  {/* <div className='linkDetails'>
-                    <h2>Education and Carrer</h2>
-                    <p>
-                      <strong>Qualification : </strong>{' '}
-                      {additionalData.highestQual} ,
-                      <br />
-                      <strong>Completion Year : </strong>{' '}
-                      {additionalData.yearComplete} ,
-                      <br />
-                      <strong>Current Job : </strong>{' '}
-                      {additionalData.currentJob} ,
-                      <br />
-                      <strong>Estimated Annual Income : </strong>{' '}
-                      {additionalData.income}/-
-                    </p>
-                  </div> */}
-                </div>
+                </>
               )}
             </div>
           </div>

@@ -5,6 +5,7 @@ import ExpectationInfo from '../../component/ExpectationInfo'
 import FamilyInfo from '../../component/FamilyInfo'
 import MyselfInfo from '../../component/MyselfInfo'
 import ProfilePhotoUpload from '../../component/ProfilePhotoUpload'
+import SocialInfo from '../../component/SocialInfo'
 import UploadProfileFile from '../../component/UploadProfileFile'
 import UserContext from '../../context/user'
 import { fetchAdditionalData } from '../../utils/firebase'
@@ -14,6 +15,7 @@ const headingdata = [
   'Information About Your Education and Career',
   'Some Information About Your Family',
   'Some More Question About Yourself',
+  'Paste Your Social Links',
   'Question About Expectation From You',
 ]
 
@@ -40,6 +42,12 @@ const Additional = () => {
     isPartDowry: 'no',
     isSupportWidower: 'no',
     opinion: '',
+    videolink: '',
+    instagram: '',
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    email: '',
   })
   const [page, setPage] = useState(0)
   const [photoUpld, setPhotoUpld] = useState(false)
@@ -68,6 +76,12 @@ const Additional = () => {
     isPartDowry,
     isSupportWidower,
     opinion,
+    instagram,
+    facebook,
+    twitter,
+    linkedin,
+    email,
+    videolink,
   } = additionalData
 
   const handleChange = (e) => {
@@ -113,6 +127,19 @@ const Additional = () => {
           hobbies={hobbies}
           isSmoker={isSmoker}
           isAlcoholic={isAlcoholic}
+          videolink={videolink}
+        />
+      )
+    } else if (page === 3) {
+      return (
+        <SocialInfo
+          handleChange={handleChange}
+          setPage={setPage}
+          instagram={instagram}
+          twitter={twitter}
+          linkedin={linkedin}
+          facebook={facebook}
+          email={email}
         />
       )
     } else {
@@ -173,7 +200,7 @@ const Additional = () => {
               ) : (
                 <>
                   <div className='progress'>
-                    <p>Step {page + 1} of 4</p>
+                    <p>Step {page + 1} of 5</p>
                   </div>
                   <form>{handlePage()}</form>
                 </>
