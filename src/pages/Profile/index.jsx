@@ -173,7 +173,7 @@ const Profile = () => {
       <div className='container'>
         <h1 className='pageHeading'>{isOwn ? 'My Profile' : 'Profile'}</h1>
         {profileData && (
-          <div>
+          <div className='mainProfileCard'>
             <div className='profileWrapper'>
               <img src={profileData.profileUrl} alt='Profile img' />
               <div className='rightSide'>
@@ -196,7 +196,7 @@ const Profile = () => {
               </div>
             </div>
             <div className='additionalInfo'>
-              <h1 className='pageHeading'>Additional Info</h1>
+              {/* <h1 className='pageHeading'>Additional Info</h1> */}
 
               {!additionalData ? (
                 <div className='noData'>
@@ -207,7 +207,7 @@ const Profile = () => {
                   <Link to='/additional'>Create Full Profile</Link>
                 </div>
               ) : (
-                <div>
+                <>
                   <div className='linksDiv'>
                     {menuTitles.map((item, i) => (
                       <div
@@ -223,32 +223,12 @@ const Profile = () => {
                         Edit Profile
                       </Link>
                     )}
-
-                    {/* <div className='menu active'>Education and Career</div>
-                    <div className='menu'>Family Background</div>
-                    <div className='menu'>About Me</div> */}
                   </div>
                   <div className='linkDetails'>
                     <h2>{menuTitles[menuPage]}</h2>
                     {renderInfoPage()}
                   </div>
-                  {/* <div className='linkDetails'>
-                    <h2>Education and Carrer</h2>
-                    <p>
-                      <strong>Qualification : </strong>{' '}
-                      {additionalData.highestQual} ,
-                      <br />
-                      <strong>Completion Year : </strong>{' '}
-                      {additionalData.yearComplete} ,
-                      <br />
-                      <strong>Current Job : </strong>{' '}
-                      {additionalData.currentJob} ,
-                      <br />
-                      <strong>Estimated Annual Income : </strong>{' '}
-                      {additionalData.income}/-
-                    </p>
-                  </div> */}
-                </div>
+                </>
               )}
             </div>
           </div>
