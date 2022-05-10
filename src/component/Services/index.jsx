@@ -1,7 +1,7 @@
 import React from 'react'
 import './services.style.css'
 import Button from '../Button'
-import serviceImg from '../../assets/wedding.svg'
+import serviceImg from '../../assets/4.jpg'
 import { Link } from 'react-router-dom'
 const Services = () => {
   return (

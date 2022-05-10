@@ -33,12 +33,12 @@ ul .nav-item {
 
 .nav-item:hover {
   /* background-color: rgba(128, 128, 128, 0.432); */
-  color: blueviolet;
+  color: #830305;
 }
 
 .nav .nav-item.bottomBorder {
-  border-bottom: 4px solid blueviolet;
-  color: blueviolet;
+  border-bottom: 4px solid #830305;
+  color: #830305;
   padding-bottom: 14px;
 }
 
@@ -51,7 +51,7 @@ div.logo {
 }
 
 .btnNav {
-  background-color: blueviolet;
+  background-color: #830305;
   color: white;
   width: 118px;
   padding: 10px 0px;
@@ -136,7 +136,7 @@ div.logo {
 }
 .overlayMenu .bgActive {
   /* border-color: blueviolet; */
-  border-left: 5px solid blueviolet;
+  border-left: 5px solid #830305;
   padding-left: 15px;
   background-color: rgb(221, 221, 221) !important;
 }
@@ -148,5 +148,5 @@ div.logo {
 }
 .overlayMenu .btnLogout:hover {
   letter-spacing: 2px;
-  color: blueviolet;
+  color: #830305;
 }

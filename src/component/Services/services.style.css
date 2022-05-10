@@ -9,13 +9,13 @@
   align-items: center;
 }
 
-.imageCard {
+/* .imageCard {
   padding: 30px;
   background-color: rgb(255, 255, 255);
   border: 30px solid blueviolet;
   box-shadow: inset 2px 3px 5px 3px rgb(75 74 74),
     4px 4px 6px rgb(44 44 44 / 76%);
-}
+} */
 
 .leftService,
 .rightService {

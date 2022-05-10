@@ -1,5 +1,6 @@
 .about {
   padding-bottom: 90px;
+  position: relative;
 }
 
 .aboutContainer {
@@ -7,12 +8,21 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+.rangoliBg {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 268px;
+  height: auto;
+  top: 41px;
+}
 .rightAbout,
 .leftAbout {
   width: 40%;
 }
 .aboutImg {
-  width: 100%;
+  width: 65%;
 }
 
 .divHeader {

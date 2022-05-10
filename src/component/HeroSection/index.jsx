@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './heroSection.style.css'
-import heroimage from '../../assets/herosvg.svg'
+import heroimage from '../../assets/1.jpg'
 import bg from '../../assets/bg-abstract1.svg'
 import slugify from 'slugify'
 import { Link } from 'react-router-dom'
