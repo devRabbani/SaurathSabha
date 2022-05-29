@@ -43,3 +43,13 @@
   border: none;
   height: 2px;
 }
+@media screen and (max-width: 500px) {
+  .authCard {
+    padding: 0;
+    width: auto;
+  }
+
+  .authCard hr {
+    margin: 5px auto 20px;
+  }
+}

@@ -147,17 +147,36 @@ label span {
 
   p.headerTag {
     text-align: center;
-    margin-top: -45px;
+    margin-top: -48px;
     word-spacing: 0;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
   h3.formHeader {
-    font-size: 3rem;
+    font-size: 3.5rem;
     text-align: center;
     margin: 4px auto 16px;
   }
   .formCard {
     width: 100%;
     padding: 30px 20px;
+    background-color: #7f7a7a61;
+    backdrop-filter: blur(13px);
+  }
+  .formHorizontal select {
+    padding: 10px;
+    background-color: #8f8f8f38;
+    /* color: black; */
+  }
+  input,
+  .css-1s2u09g-control {
+    background-color: #7f7a7a61 !important;
+    border-color: rgb(118, 118, 118) !important;
+  }
+  .css-14el2xx-placeholder,
+  input::placeholder {
+    color: rgb(42, 42, 42) !important;
+  }
+  .formCard p {
+    margin: 10px auto 28px;
   }
 }
