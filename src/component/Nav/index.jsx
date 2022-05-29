@@ -19,6 +19,8 @@ import {
   FaUserAlt,
   FaSignOutAlt,
   FaSignInAlt,
+  FaTimes,
+  FaBars,
 } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
@@ -27,6 +29,7 @@ const Nav = ({ user, setIsModal }) => {
   const history = useHistory()
   const { firebaseApp } = useContext(FirebaseContext)
   const [isMenu, setIsMenu] = useState(false)
+  const [hamMenu, setHamMenu] = useState(false)
 
   const handleMenu = () => {
     setIsMenu((prev) => !prev)
@@ -39,6 +42,9 @@ const Nav = ({ user, setIsModal }) => {
           <img src={logo} alt='Logo' />
 
           {/* <NavLink to='/'>SaurathSabha</NavLink> */}
+        </div>
+        <div onClick={() => setHamMenu((prev) => !prev)} className='menuBar'>
+          {hamMenu ? <FaTimes /> : <FaBars />}
         </div>
         <ul className='nav'>
           <li>
@@ -116,6 +122,80 @@ const Nav = ({ user, setIsModal }) => {
           <button onClick={() => setIsModal(true)} className='btnNav'>
             <FaSignInAlt /> Login
           </button>
+        )}
+        {hamMenu && (
+          <div className='mobileMenu'>
+            <NavLink
+              className='nav-item'
+              exact
+              activeClassName='bottomBorder'
+              to='/'
+            >
+              <FaHome /> Home
+            </NavLink>
+            <NavLink
+              exact
+              activeClassName='bottomBorder'
+              className='nav-item'
+              to='/search'
+            >
+              <FaSearch /> Search
+            </NavLink>
+
+            <NavLink
+              exact
+              activeClassName='bottomBorder'
+              className='nav-item'
+              to='/plans'
+            >
+              <FaRupeeSign /> Plans
+            </NavLink>
+
+            {user ? (
+              <div className='navUser'>
+                <div className='navUserDiv' onClick={handleMenu}>
+                  <FaUserCircle />
+                  <p>
+                    {user.displayName?.length > 0
+                      ? user.displayName
+                      : 'User Name'}
+                  </p>
+                  {/* {isMenu ? <FaChevronUp /> : <FaChevronDown />} */}
+
+                  <FaChevronDown className={isMenu && 'tick'} />
+                </div>
+                {isMenu && (
+                  <div className='overlayMenu'>
+                    <NavLink
+                      activeClassName='bgActive'
+                      to={`/profile/${user && user.uid}`}
+                    >
+                      <FaUserAlt /> My Profile
+                    </NavLink>
+
+                    <NavLink activeClassName='bgActive' to={`/notification`}>
+                      <FaBell /> Notification
+                    </NavLink>
+
+                    <NavLink activeClassName='bgActive' to={`/favourite`}>
+                      <FaHeart /> Favourite
+                    </NavLink>
+
+                    <div
+                      className='btnLogout'
+                      onClick={() => firebaseApp.auth().signOut()}
+                    >
+                      <FaSignOutAlt /> Logout
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button onClick={() => setIsModal(true)} className='btnNav'>
+                <FaSignInAlt /> Login
+              </button>
+            )}
+          </div>
         )}
       </div>
     </nav>

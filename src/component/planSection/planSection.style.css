@@ -139,3 +139,14 @@
   color: rgb(0, 0, 0);
   border-bottom: none;
 }
+
+@media screen and (max-width: 500px) {
+  .planCardWrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .planSectionCard,
+  .planSectionCard.big {
+    width: 80%;
+  }
+}

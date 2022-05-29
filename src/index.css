@@ -9,12 +9,10 @@ body {
   font-family: 'Nunito', sans-serif;
   -webkit-tap-highlight-color: transparent;
   height: 100%;
-  overflow: auto;
 }
 html {
   font-size: 62.5%;
   height: 100%;
-  overflow: hidden;
 }
 
 #root {
@@ -50,6 +48,7 @@ img {
 
 .pageBody {
   min-height: 94vh;
+  margin-top: 62px;
   /* padding-bottom: 70px; */
 }
 
@@ -79,4 +78,13 @@ img {
 select,
 input {
   border-radius: 4px;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    width: 95%;
+  }
+  .pageBody {
+    margin-top: 56px;
+  }
 }

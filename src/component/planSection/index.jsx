@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
 import { FaCheck, FaTimes, FaAward, FaArrowRight } from 'react-icons/fa'
 import './planSection.style.css'
+import bg from '../../assets/pricebg.png'
 const PlanSection = () => {
   return (
-    <section className='planSection'>
+    <section
+      className='planSection'
+      style={{
+        backgroundImage: `linear-gradient(to bottom right,#43175774,#0000bb5c),url(${bg})`,
+      }}
+    >
       <h3 className='sectionHeading'>Plans</h3>
       <div className='planCardWrapper'>
         <div className='planSectionCard'>

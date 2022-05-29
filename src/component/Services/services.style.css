@@ -1,12 +1,16 @@
 .service {
-  padding: 80px 0;
-  background-color: tomato;
+  /* padding: 80px 0; */
+  background-color: #ff6347;
+  position: sticky;
+  top: 62px;
+  z-index: -1;
 }
 
 .serviceContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 94vh;
 }
 
 /* .imageCard {
@@ -26,6 +30,9 @@
   width: 100%;
 }
 
+.service .aboutImg {
+  box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.3);
+}
 .serviceHeader::before {
   content: ' ';
   height: 3px;
@@ -42,4 +49,30 @@
 
 .servicePara {
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 500px) {
+  .leftService,
+  .rightService {
+    width: 100%;
+  }
+  .serviceHeader::before {
+    margin: 0 auto 10px;
+  }
+
+  .service {
+    position: relative;
+    top: auto;
+    z-index: auto;
+  }
+
+  .rightService a {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+
+  .leftService {
+    margin: 40px 0 30px;
+  }
 }

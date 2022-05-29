@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './heroSection.style.css'
 import heroimage from '../../assets/1.jpg'
-import bg from '../../assets/bg-abstract1.svg'
+import bg from '../../assets/herobg.jpg'
+import bgwave from '../../assets/wave-bottom.svg'
 import slugify from 'slugify'
 import { Link } from 'react-router-dom'
 import Profile from '../../pages/Profile'
@@ -17,7 +18,6 @@ const HeroSection = () => {
     emp: '',
   })
   const { name, pfor, age, gender, city, emp } = searchData
-
   const handleChange = (e) => {
     e.preventDefault()
 
@@ -36,13 +36,23 @@ const HeroSection = () => {
 
   return (
     <section className='heroSectionWrapper'>
+      <div
+        className='bgHero'
+        style={{
+          backgroundImage: `linear-gradient(to right,rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),url(${bg})`,
+        }}
+      />
       <div className='heroSection container'>
-        <div className='leftSide'>
+        {/* <div className='leftSide'>
           <img src={heroimage} alt='heroImage' />
-        </div>
+        </div> */}
         <div className='rightSide'>
-          <p className='headerTag'>Some header tag goes here for tagline</p>
-          <h3 className='formHeader'>Find Your Soulmate</h3>
+          <p className='headerTag'>
+            We find the best match for your future mate
+          </p>
+          <h3 className='formHeader'>
+            Find Your <span>Soulmate</span>
+          </h3>
           <form className='formCard'>
             <div className='formHorizontal nameAgeForm'>
               <div className='form-group'>
@@ -116,7 +126,7 @@ const HeroSection = () => {
                 className='form-control'
               />
             </div>
-            <p>* section are not important</p>
+            <p></p>
             <Link
               to={{ pathname: '/search', state: searchData }}
               className='btn btnGetstarted'
@@ -125,7 +135,10 @@ const HeroSection = () => {
             </Link>
           </form>
         </div>
-        <div style={{ backgroundImage: `url(${bg})` }} className='bgHero'></div>
+        <div
+          style={{ backgroundImage: `url(${bgwave})` }}
+          className='bgWave'
+        ></div>
       </div>
     </section>
   )

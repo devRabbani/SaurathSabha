@@ -2,12 +2,7 @@
   padding: 80px;
   background-size: cover;
   background-position: bottom;
-}
-
-.testimonyHeader {
-  font-size: 4rem;
-  font-weight: 700;
-  text-align: center;
+  background-color: white;
 }
 
 .testimonySlider {
@@ -94,4 +89,13 @@
 .swiper-container-3d .swiper-slide-shadow-left,
 .swiper-container-3d .swiper-slide-shadow-right {
   background-image: none;
+}
+
+@media screen and (max-width: 500px) {
+  .testimony {
+    padding: 30px 5px;
+  }
+  .sectionHeading {
+    font-size: 3rem;
+  }
 }

@@ -2,15 +2,19 @@ import React from 'react'
 import './services.style.css'
 import Button from '../Button'
 import serviceImg from '../../assets/4.jpg'
+import bg from '../../assets/aboutpattern.png'
 import { Link } from 'react-router-dom'
 const Services = () => {
   return (
-    <section className='service'>
+    <section
+      className='service'
+      style={{
+        backgroundImage: `linear-gradient(to right,#431757ad,#ff6347c7),url(${bg})`,
+      }}
+    >
       <div className='container serviceContainer'>
         <div className='leftService'>
-          <div className='imageCard'>
-            <img className='aboutImg' src={serviceImg} alt='about' />
-          </div>
+          <img className='aboutImg' src={serviceImg} alt='about' />
         </div>
         <div className='rightService'>
           <h3 className='divHeader'>Services</h3>
@@ -21,8 +25,8 @@ const Services = () => {
             aperiam laboriosam dolores, sed asperiores in, quae expedita eius
             veniam facilis incidunt saepe?
           </p>
-          <Link to='/service/register'>
-            <Button ring>Register Now</Button>
+          <Link className='btn btnRing' to='/service/register'>
+            Register Now
           </Link>
         </div>
       </div>
