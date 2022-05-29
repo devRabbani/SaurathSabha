@@ -8,7 +8,8 @@ nav {
 }
 
 .navContainer,
-ul.nav {
+ul.nav,
+.menuWrapper {
   display: flex;
   align-items: center;
 }
@@ -149,4 +150,46 @@ div.logo {
 .overlayMenu .btnLogout:hover {
   letter-spacing: 2px;
   color: #830305;
+}
+
+.menuBar {
+  display: none;
+  font-size: 3rem;
+  margin-bottom: -7px;
+}
+
+@media screen and (max-width: 500px) {
+  .nav,
+  .btnNav {
+    display: none !important;
+  }
+  .mobileMenu .btnNav {
+    display: flex !important;
+    /* width: fit-content;
+    padding: 10px; */
+  }
+
+  .mobileMenu {
+    display: flex;
+    border-top: 1px solid rgb(156, 156, 156);
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 20px 10px 30px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  }
+
+  nav {
+    width: 100vw;
+  }
+  .navContainer {
+    padding: 10px;
+  }
+  .menuBar {
+    display: block;
+  }
 }

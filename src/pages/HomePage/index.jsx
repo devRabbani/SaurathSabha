@@ -18,6 +18,7 @@ const HomePage = ({ isModal, setIsModal }) => {
   const { user } = useContext(UserContext)
   const location = useLocation()
   const history = useHistory()
+
   useEffect(() => {
     if (isModal) {
       document.body.style.overflowY = 'hidden'
@@ -41,10 +42,11 @@ const HomePage = ({ isModal, setIsModal }) => {
   return (
     <>
       <HeroSection />
-      <Featured />
+      <WhyUs />
+      {/* <Featured /> */}
       <About />
       <Services />
-      <WhyUs />
+
       <TestimonyGrid />
       <PlanSection />
       {/* <Testimony /> */}

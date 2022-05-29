@@ -20,36 +20,36 @@ const Footer = () => {
             <h2>Links</h2>
             <ul>
               <li>
-                <a href=''>Business Mentor For Startups</a>
+                <a href=''>About Us</a>
               </li>
               <li>
-                <a href=''>Compliance and Control</a>
+                <a href=''>Blogs</a>
               </li>
               <li>
-                <a href=''>Funding your Business Growth</a>
+                <a href=''>Why we stand out</a>
               </li>
               <li>
-                <a href=''>Incorporations Registration</a>
+                <a href=''>Services</a>
               </li>
               <li>
-                <a href=''>Migrate and Expand your Business Overseas</a>
+                <a href=''>Packages</a>
               </li>
               <li>
-                <a href=''>Premium Services</a>
+                <a href=''>Testimonials</a>
               </li>
             </ul>
           </div>
           <div className='footerColumn'>
-            <h2>Releted Links</h2>
+            <h2>Other Links</h2>
             <ul>
               <li>
-                <a href=''>Central Board of Indirect Taxes and Customs</a>
+                <a href=''>Press & Media</a>
               </li>
               <li>
-                <a href=''>State Tax Websites</a>
+                <a href=''>Gallery</a>
               </li>
               <li>
-                <a href=''>National Portal</a>
+                <a href=''>Privacy Policy</a>
               </li>
             </ul>
           </div>
