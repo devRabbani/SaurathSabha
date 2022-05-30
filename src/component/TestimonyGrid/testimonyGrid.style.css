@@ -1,10 +1,10 @@
 /* utilities */
-.nameImgDiv {
+/* .nameImgDiv {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
   gap: 1rem;
-}
+} */
 
 /* components */
 .testimonial-grid {
@@ -100,8 +100,9 @@
 }
 
 .testimonial .name {
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 1.63rem;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .testimonial > p {

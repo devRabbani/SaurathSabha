@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './nav.style.css'
-import logo from '../../assets/Asset 1@2x.png'
+import logo from '../../assets/saurathsabhalogo.png'
 import UserContext from '../../context/user'
 import FirebaseContext from '../../context/firebase'
 import {
