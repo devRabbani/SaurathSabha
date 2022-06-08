@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function WhyusColumn({ children, img, title }) {
   const [isFold, setIsFold] = useState(true)
-
+  const headerRef = useRef()
+  const handleFold = () => {
+    headerRef.current.scrollIntoView()
+    setIsFold(true)
+  }
   return (
     <>
-      <div className='whycard'>
+      <div ref={headerRef} className='whycard'>
         <div className='imgcard'>
           <img src={img} alt='whyus' />
         </div>
@@ -18,7 +22,7 @@ export default function WhyusColumn({ children, img, title }) {
         ) : (
           <>
             <p>{children}</p>
-            <span onClick={() => setIsFold(true)}>Close</span>
+            <span onClick={handleFold}>Close</span>
           </>
         )}
       </div>
