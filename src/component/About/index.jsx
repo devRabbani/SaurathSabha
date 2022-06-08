@@ -1,5 +1,5 @@
 import React from 'react'
-import aboutImg from '../../assets/about.jpg'
+import aboutImg from '../../assets/about.webp'
 import rangoliImg from '../../assets/rangoli.png'
 import bgpattern from '../../assets/aboutbg.png'
 import './about.style.css'

@@ -1,7 +1,7 @@
 import React from 'react'
 import './services.style.css'
 import Button from '../Button'
-import serviceImg from '../../assets/4.jpg'
+import serviceImg from '../../assets/services.webp'
 import bg from '../../assets/aboutpattern.png'
 import { Link } from 'react-router-dom'
 const Services = () => {

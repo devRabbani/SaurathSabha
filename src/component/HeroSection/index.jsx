@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './heroSection.style.css'
 import heroimage from '../../assets/1.jpg'
-import bg from '../../assets/herobg.jpg'
+import bg from '../../assets/herobg.webp'
 import bgwave from '../../assets/wave-bottom.svg'
 import slugify from 'slugify'
 import { Link } from 'react-router-dom'
