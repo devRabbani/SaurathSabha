@@ -34,6 +34,14 @@ const Nav = ({ user, setIsModal }) => {
   const handleMenu = () => {
     setIsMenu((prev) => !prev)
   }
+  const handleMenuOff = (e) => {
+    if (
+      e.target.classList.contains('nav-item') ||
+      e.target.classList.contains('btnLogout')
+    ) {
+      setHamMenu(false)
+    }
+  }
 
   return (
     <nav>
@@ -124,7 +132,7 @@ const Nav = ({ user, setIsModal }) => {
           </button>
         )}
         {hamMenu && (
-          <div className='mobileMenu'>
+          <div className='mobileMenu' onClick={handleMenuOff}>
             <NavLink
               className='nav-item'
               exact
@@ -152,44 +160,38 @@ const Nav = ({ user, setIsModal }) => {
             </NavLink>
 
             {user ? (
-              <div className='navUser'>
-                <div className='navUserDiv' onClick={handleMenu}>
-                  <FaUserCircle />
-                  <p>
-                    {user.displayName?.length > 0
-                      ? user.displayName
-                      : 'User Name'}
-                  </p>
-                  {/* {isMenu ? <FaChevronUp /> : <FaChevronDown />} */}
+              <>
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/profile/${user && user.uid}`}
+                >
+                  <FaUserAlt /> My Profile
+                </NavLink>
 
-                  <FaChevronDown className={isMenu && 'tick'} />
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/notification`}
+                >
+                  <FaBell /> Notification
+                </NavLink>
+
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/favourite`}
+                >
+                  <FaHeart /> Favourite
+                </NavLink>
+
+                <div
+                  className='btnLogout'
+                  onClick={() => firebaseApp.auth().signOut()}
+                >
+                  <FaSignOutAlt /> Logout
                 </div>
-                {isMenu && (
-                  <div className='overlayMenu'>
-                    <NavLink
-                      activeClassName='bgActive'
-                      to={`/profile/${user && user.uid}`}
-                    >
-                      <FaUserAlt /> My Profile
-                    </NavLink>
-
-                    <NavLink activeClassName='bgActive' to={`/notification`}>
-                      <FaBell /> Notification
-                    </NavLink>
-
-                    <NavLink activeClassName='bgActive' to={`/favourite`}>
-                      <FaHeart /> Favourite
-                    </NavLink>
-
-                    <div
-                      className='btnLogout'
-                      onClick={() => firebaseApp.auth().signOut()}
-                    >
-                      <FaSignOutAlt /> Logout
-                    </div>
-                  </div>
-                )}
-              </div>
+              </>
             ) : (
               <button onClick={() => setIsModal(true)} className='btnNav'>
                 <FaSignInAlt /> Login

@@ -168,7 +168,9 @@ div.logo {
     /* width: fit-content;
     padding: 10px; */
   }
-
+  .navUser {
+    display: none;
+  }
   .mobileMenu {
     display: flex;
     border-top: 1px solid rgb(156, 156, 156);
@@ -194,5 +196,30 @@ div.logo {
   }
   .logo img {
     width: 67px;
+  }
+  .nav-item {
+    padding: 15px 20px;
+  }
+  .mobileMenu .btnLogout {
+    transition: all 0.3s ease-in-out;
+    border-top: 1px solid rgb(202, 202, 202);
+    padding-top: 13px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.9rem;
+    color: #830305;
+  }
+  .mobileMenu .btnLogout:active {
+    letter-spacing: 2px;
+  }
+
+  .nav-item:active,
+  .nav-item:hover {
+    /* background-color: rgba(128, 128, 128, 0.432); */
+    letter-spacing: 1px;
+  }
+
+  .nav-item.bottomBorder {
+    color: #830305;
   }
 }

@@ -52,4 +52,8 @@
   .authCard hr {
     margin: 5px auto 20px;
   }
+  .errorMsg,
+  .successMsg {
+    margin: 20px 0px -5px;
+  }
 }

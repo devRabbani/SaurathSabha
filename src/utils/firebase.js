@@ -393,10 +393,12 @@ export const fetchFilterData = async (
   employement,
   profileFor,
   gender,
+  isSocial,
+  isVideo,
   uid
 ) => {
   let query = firebaseApp.firestore().collection('users')
-  // .where('userId', '!=', uid)
+
   if (gender) {
     query = query.where('gender', '==', gender)
   }
@@ -412,6 +414,13 @@ export const fetchFilterData = async (
   if (city) {
     query = query.where('city', '==', city)
   }
+  if (isSocial) {
+    query = query.where('isSocial', '==', isSocial)
+  }
+  if (isVideo) {
+    query = query.where('isVideo', '==', isVideo)
+  }
+
   if (age) {
     const [min, max] = age.split('-')
     query = query.where('age', '>=', min)
@@ -420,8 +429,9 @@ export const fetchFilterData = async (
 
   const data = await query.get()
   if (!data.empty) {
-    const result = data.docs.map((item) => item.data())
-    console.log('Result', result)
+    const result = data.docs
+      .map((item) => item.data())
+      .filter((item) => item.userId !== uid)
     return result
   } else {
     return []

@@ -19,12 +19,21 @@ const Search = ({ location }) => {
     profileFor: '',
     city: '',
     gender: '',
+    socialLink: '',
+    videoLink: '',
   })
 
-  const { age, employement, profileFor, city, gender } = filters
+  const { age, employement, profileFor, city, gender, socialLink, videoLink } =
+    filters
 
   const { user } = useContext(UserContext)
   // const searchString = location.state
+
+  const fetchData = async () => {
+    const result = await fetchAllUsers(user?.uid)
+    setIsLoading(false)
+    setData(result)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -54,6 +63,8 @@ const Search = ({ location }) => {
         employement,
         profileFor,
         gender,
+        socialLink,
+        videoLink,
         user?.uid
       )
       setData(result)
@@ -63,18 +74,31 @@ const Search = ({ location }) => {
 
     setIsBtnLoading(false)
   }
-  const handleSearch = async () => {
+
+  const handleReset = () => {
+    try {
+      setFilters({
+        age: '',
+        employement: '',
+        profileFor: '',
+        city: '',
+        gender: '',
+        socialLink: '',
+        videoLink: '',
+      })
+      fetchData()
+    } catch (error) {
+      console.log('Something Went Wrong', error)
+    }
+  }
+
+  const handleSearch = () => {
     setIsBtnLoading(true)
-    await searchByName()
+    searchByName()
     setIsBtnLoading(false)
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchAllUsers(user?.uid)
-      setIsLoading(false)
-      setData(result)
-    }
     try {
       fetchData()
     } catch (error) {
@@ -119,13 +143,28 @@ const Search = ({ location }) => {
             <option value='selfemployeed'>Self Employed</option>
             <option value='privatejobs'>Private Jobs</option>
           </select>
-          <button
-            onClick={handleFilter}
-            disabled={isBtnLoading}
-            className='btnSearch'
-          >
-            {isBtnLoading ? 'Loading' : 'Filter'}
-          </button>
+          <select onChange={handleChange} value={socialLink} name='socialLink'>
+            <option value=''>With Social Links</option>
+            <option value='yes'>Yes</option>
+            <option value=''>No</option>
+          </select>
+          <select onChange={handleChange} value={videoLink} name='videoLink'>
+            <option value=''>With Video Links</option>
+            <option value='yes'>Yes</option>
+            <option value=''>No</option>
+          </select>
+          <div className='filterBtns'>
+            <button
+              onClick={handleFilter}
+              disabled={isBtnLoading}
+              className='btnSearch'
+            >
+              {isBtnLoading ? 'Loading' : 'Filter'}
+            </button>
+            <button onClick={handleReset} className='btnReset'>
+              Reset
+            </button>
+          </div>
         </div>
         <div className='searchDiv'>
           <input
