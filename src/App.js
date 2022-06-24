@@ -14,6 +14,7 @@ import ModalContext from './context/modal'
 import Additional from './pages/additional'
 import ServiceRegister from './pages/serviceRegister'
 import Favourite from './pages/favourite'
+import Notification from './pages/notification'
 
 function App() {
   const { user } = useAuthListener()
@@ -67,6 +68,13 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute user={user} path='/plans' pathname='/plans'>
               <Plans />
+            </ProtectedRoute>
+            <ProtectedRoute
+              user={user}
+              path='/notification'
+              pathname='/notification'
+            >
+              <Notification />
             </ProtectedRoute>
             <ProtectedRoute
               user={user}

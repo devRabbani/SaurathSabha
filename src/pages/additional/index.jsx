@@ -8,6 +8,7 @@ import ProfilePhotoUpload from '../../component/ProfilePhotoUpload'
 import SocialInfo from '../../component/SocialInfo'
 import UploadProfileFile from '../../component/UploadProfileFile'
 import UserContext from '../../context/user'
+import useTop from '../../hooks/useTop'
 import { getDataByUid } from '../../utils/firebase'
 import './additional.style.css'
 
@@ -20,6 +21,7 @@ const headingdata = [
 ]
 
 const Additional = () => {
+  useTop()
   // States
   const [additionalData, setAdditionalData] = useState({
     bio: '',

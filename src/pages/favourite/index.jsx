@@ -2,9 +2,12 @@ import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../../component/Loader'
 import UserContext from '../../context/user'
+import useTop from '../../hooks/useTop'
 import { getFavList } from '../../utils/firebase'
 import './favourite.style.css'
+
 const Favourite = () => {
+  useTop()
   const [userList, setUserLists] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -24,8 +27,8 @@ const Favourite = () => {
     <div className='container pageBody'>
       <h1 className='pageHeading'>Favourite List</h1>
       {isLoading ? (
-        <Loader />
-      ) : (
+        <Loader dark={true} />
+      ) : userList.length ? (
         <div className='favListWrapper'>
           {userList.map((item, i) => (
             <div key={i} className='favCard'>
@@ -42,6 +45,8 @@ const Favourite = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <p className='favListEmpty'>List is empty try to add some users</p>
       )}
     </div>
   )

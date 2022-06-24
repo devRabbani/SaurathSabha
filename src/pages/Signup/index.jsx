@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './signup.style.css'
 
 import { registerUser } from '../../utils/firebase'
+import useTop from '../../hooks/useTop'
 
 const Signup = ({ location, history }) => {
+  useTop()
   const { phoneNo, uid } = location.state
 
   // For Testing

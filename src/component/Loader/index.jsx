@@ -1,4 +1,4 @@
-export default function Loader() {
+export default function Loader({ dark }) {
   return (
     <div className='loader'>
       <svg
@@ -17,7 +17,7 @@ export default function Loader() {
           cy='50'
           r='32'
           strokeWidth='8'
-          stroke='#ffffff'
+          stroke={dark ? '#cccccc' : '#ffffff'}
           strokeDasharray='50.26548245743669 50.26548245743669'
           fill='none'
           strokeLinecap='round'

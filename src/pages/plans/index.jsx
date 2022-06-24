@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import PlanCard from '../../component/PlanCard'
+import useTop from '../../hooks/useTop'
 
 const plansList = [
   {
@@ -75,6 +76,8 @@ const plansList = [
 ]
 
 const Plans = () => {
+  useTop()
+
   const [selected, setSelected] = useState(null)
   const handleSelect = (i) => {
     if (selected === i) {

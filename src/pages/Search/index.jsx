@@ -27,7 +27,7 @@ const Search = () => {
 
   const { age, employement, profileFor, city, gender, isSocial, isVideo } =
     filters
-  console.log('ffilters', filters)
+
   const { user } = useContext(UserContext)
   // const searchString = location.state
 

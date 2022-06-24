@@ -11,8 +11,11 @@ import {
 } from 'react-icons/fa'
 import './profile.style.css'
 import Loader from '../../component/Loader'
+import useTop from '../../hooks/useTop'
 
 const Profile = () => {
+  useTop()
+
   const [additionalData, setAdditionalData] = useState()
   const [profileData, setProfileData] = useState()
   const [isLoading, setIsLoading] = useState(false)

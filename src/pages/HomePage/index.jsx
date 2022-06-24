@@ -10,9 +10,12 @@ import Services from '../../component/Services'
 import TestimonyGrid from '../../component/TestimonyGrid'
 import WhyUs from '../../component/WhyUs'
 import UserContext from '../../context/user'
+import useTop from '../../hooks/useTop'
 import './homepage.style.css'
 
 const HomePage = ({ isModal, setIsModal }) => {
+  useTop()
+
   const { user } = useContext(UserContext)
   const location = useLocation()
   const history = useHistory()
