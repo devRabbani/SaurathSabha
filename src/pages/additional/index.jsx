@@ -8,7 +8,7 @@ import ProfilePhotoUpload from '../../component/ProfilePhotoUpload'
 import SocialInfo from '../../component/SocialInfo'
 import UploadProfileFile from '../../component/UploadProfileFile'
 import UserContext from '../../context/user'
-import { fetchAdditionalData } from '../../utils/firebase'
+import { getDataByUid } from '../../utils/firebase'
 import './additional.style.css'
 
 const headingdata = [
@@ -30,7 +30,7 @@ const Additional = () => {
     department: '',
     fatherName: '',
     fatherProfession: '',
-    siblings: '',
+    siblings: [],
     grandFather: '',
     gautra: '',
     maul: '',
@@ -49,9 +49,11 @@ const Additional = () => {
     linkedin: '',
     email: '',
   })
+
   const [page, setPage] = useState(0)
   const [photoUpld, setPhotoUpld] = useState(false)
   const [isManual, setIsManual] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const { user } = useContext(UserContext)
@@ -91,71 +93,49 @@ const Additional = () => {
       [name]: value,
     }))
   }
+  const handleSetSibbs = (value) => {
+    setAdditionalData((prev) => ({
+      ...prev,
+      siblings: value,
+    }))
+  }
 
-  const handlePage = () => {
-    if (page === 0) {
-      return (
-        <EducationInfo
-          highestQual={highestQual}
-          yearComplete={yearComplete}
-          currentJob={currentJob}
-          income={income}
-          department={department}
-          handleChange={handleChange}
-          setPage={setPage}
-        />
-      )
-    } else if (page === 1) {
-      return (
-        <FamilyInfo
-          fatherName={fatherName}
-          fatherProfession={fatherProfession}
-          siblings={siblings}
-          grandFather={grandFather}
-          gautra={gautra}
-          maul={maul}
-          handleChange={handleChange}
-          setPage={setPage}
-        />
-      )
-    } else if (page === 2) {
-      return (
-        <MyselfInfo
-          handleChange={handleChange}
-          setPage={setPage}
-          bio={bio}
-          hobbies={hobbies}
-          isSmoker={isSmoker}
-          isAlcoholic={isAlcoholic}
-          videolink={videolink}
-        />
-      )
-    } else if (page === 3) {
-      return (
-        <SocialInfo
-          handleChange={handleChange}
-          setPage={setPage}
-          instagram={instagram}
-          twitter={twitter}
-          linkedin={linkedin}
-          facebook={facebook}
-          email={email}
-        />
-      )
-    } else {
-      return (
-        <ExpectationInfo
-          isDowryFree={isDowryFree}
-          isLikeGrand={isLikeGrand}
-          isPartDowry={isPartDowry}
-          isSupportWidower={isSupportWidower}
-          opinion={opinion}
-          handleChange={handleChange}
-          setPage={setPage}
-          setPhotoUpld={setPhotoUpld}
-        />
-      )
+  // Testing
+  const handleSibb = (e) => {
+    e.preventDefault()
+    const details = {
+      age: '',
+      relation: '',
+      status: '',
     }
+    setAdditionalData((prev) => ({
+      ...prev,
+      siblings: [...prev.siblings, details],
+    }))
+  }
+  const handleSibbsChange = (index, e) => {
+    e.preventDefault()
+    e.persist()
+
+    setAdditionalData((prev) => ({
+      ...prev,
+      siblings: prev.siblings.map((item, i) => {
+        if (i !== index) {
+          return item
+        }
+        return {
+          ...item,
+          [e.target.name]: e.target.value,
+        }
+      }),
+    }))
+  }
+  const handleRemove = (e, index) => {
+    e.preventDefault()
+    setAdditionalData((prev) => ({
+      ...prev,
+      siblings: prev.siblings.filter((item) => item !== prev.siblings[index]),
+    }))
   }
 
   // Side Effect
@@ -163,9 +143,10 @@ const Additional = () => {
     // If Editing User
     const fetchEditingData = async () => {
       setIsLoading(true)
-      const result = await fetchAdditionalData(user?.uid)
+      const result = await getDataByUid(user?.uid, 'additional')
       if (result) {
         setAdditionalData(result)
+        setIsEditing(true)
         console.log('User is editing')
       }
       setIsLoading(false)
@@ -175,6 +156,7 @@ const Additional = () => {
 
   return (
     <div className='additional'>
+      {console.log('additional', additionalData.siblings)}
       <div className='container additionalWrapper'>
         {isManual ? (
           <div className='waitIsManual'>
@@ -186,7 +168,7 @@ const Additional = () => {
           </div>
         ) : (
           <>
-            {page === 0 && (
+            {page === 0 && !isEditing && (
               <UploadProfileFile uid={user?.uid} setIsManual={setIsManual} />
             )}
             <h1 className='additionalH1'>
@@ -202,7 +184,69 @@ const Additional = () => {
                   <div className='progress'>
                     <p>Step {page + 1} of 5</p>
                   </div>
-                  <form>{handlePage()}</form>
+                  <form>
+                    {page === 0 && (
+                      <EducationInfo
+                        highestQual={highestQual}
+                        yearComplete={yearComplete}
+                        currentJob={currentJob}
+                        income={income}
+                        department={department}
+                        handleChange={handleChange}
+                        setPage={setPage}
+                      />
+                    )}
+                    {page === 1 && (
+                      <FamilyInfo
+                        fatherName={fatherName}
+                        fatherProfession={fatherProfession}
+                        siblings={siblings}
+                        grandFather={grandFather}
+                        gautra={gautra}
+                        maul={maul}
+                        handleChange={handleChange}
+                        handleSetSibbs={handleSetSibbs}
+                        handleSibb={handleSibb}
+                        handleSibbsChange={handleSibbsChange}
+                        handleRemove={handleRemove}
+                        setPage={setPage}
+                      />
+                    )}
+                    {page === 2 && (
+                      <MyselfInfo
+                        handleChange={handleChange}
+                        setPage={setPage}
+                        bio={bio}
+                        hobbies={hobbies}
+                        isSmoker={isSmoker}
+                        isAlcoholic={isAlcoholic}
+                        videolink={videolink}
+                      />
+                    )}
+                    {page === 3 && (
+                      <SocialInfo
+                        handleChange={handleChange}
+                        setPage={setPage}
+                        instagram={instagram}
+                        twitter={twitter}
+                        linkedin={linkedin}
+                        facebook={facebook}
+                        email={email}
+                      />
+                    )}
+                    {page === 4 && (
+                      <ExpectationInfo
+                        isDowryFree={isDowryFree}
+                        isLikeGrand={isLikeGrand}
+                        isPartDowry={isPartDowry}
+                        isSupportWidower={isSupportWidower}
+                        opinion={opinion}
+                        handleChange={handleChange}
+                        setPage={setPage}
+                        setPhotoUpld={setPhotoUpld}
+                      />
+                    )}
+                  </form>
                 </>
               )
             ) : (

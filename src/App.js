@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Nav from './component/Nav'
@@ -8,17 +8,12 @@ import Search from './pages/Search'
 import Profile from './pages/Profile'
 import UserContext from './context/user'
 import useAuthListener from './hooks/useAuthListner'
-import Connection from './pages/connection'
 import ProtectedRoute from './utils/protected.route'
-import EditProfile from './pages/editProfile'
-import EditAdditional from './pages/editAddtional'
 import Plans from './pages/plans'
-import Modal from './component/Modal'
-import LoginModal from './component/LoginModal'
-import ModalPage from './pages/ModalPage'
 import ModalContext from './context/modal'
 import Additional from './pages/additional'
 import ServiceRegister from './pages/serviceRegister'
+import Favourite from './pages/favourite'
 
 function App() {
   const { user } = useAuthListener()
@@ -54,29 +49,21 @@ function App() {
             >
               <Profile />
             </ProtectedRoute>
-            <ProtectedRoute
-              user={user}
-              exact
-              path='/edit/profile'
-              pathname='/edit/profile'
-            >
-              <EditProfile />
-            </ProtectedRoute>
-            <ProtectedRoute
+            {/* <ProtectedRoute
               user={user}
               exact
               path='/edit/additional'
               pathname='/edit/additional'
             >
               <EditAdditional />
-            </ProtectedRoute>
+            </ProtectedRoute> */}
             <ProtectedRoute
               exact
               user={user}
               path='/favourite'
               pathname='/favourite'
             >
-              <Connection />
+              <Favourite />
             </ProtectedRoute>
             <ProtectedRoute user={user} path='/plans' pathname='/plans'>
               <Plans />

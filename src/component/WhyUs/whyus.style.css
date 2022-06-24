@@ -21,7 +21,7 @@
 }
 
 .whycard {
-  padding: 20px;
+  padding: 15px;
   width: 33%;
   display: flex;
   box-shadow: 1px 3px 13px 0px rgb(148 147 147 / 61%);
@@ -30,7 +30,7 @@
   background-color: white;
   align-items: center;
   text-align: center;
-  min-height: 450px;
+  min-height: 402px;
 }
 
 .whycard img {
@@ -59,6 +59,9 @@
 }
 
 @media screen and (max-width: 500px) {
+  .whyus {
+    padding: 50px 0 20px;
+  }
   .whyusContainer {
     display: flex;
     flex-direction: column;

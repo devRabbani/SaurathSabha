@@ -10,7 +10,6 @@ const firebaseConfig = {
   storageBucket: 'saurathsabhaapp.appspot.com',
   messagingSenderId: '192070348940',
   appId: '1:192070348940:web:bd9d32955f23998a900ba9',
-  measurementId: '${config.measurementId}',
 }
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig)

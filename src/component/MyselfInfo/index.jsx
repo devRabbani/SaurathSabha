@@ -33,7 +33,7 @@ const MyselfInfo = ({
           className='form-control'
         />
       </div>
-      <div className='formHorizontal'>
+      <div className='formHorizontal habbit'>
         <div className='form-group'>
           <label className='text-muted'>Do you smoke ? :</label>
           <select value={isSmoker} onChange={handleChange} name='isSmoker'>

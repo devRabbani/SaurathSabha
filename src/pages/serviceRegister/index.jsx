@@ -5,7 +5,6 @@ import './serivice.style.css'
 
 const ServiceRegister = () => {
   const [page, setPage] = useState(0)
-  const [final, setFinal] = useState()
   const [serviceData, setServiceData] = useState({
     name: '',
     number: '',

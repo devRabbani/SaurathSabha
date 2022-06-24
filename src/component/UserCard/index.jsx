@@ -1,17 +1,62 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import UserContext from "../../context/user";
-import useUser from "../../hooks/useUser";
-import { addToFav2, addToConnect } from "../../utils/firebase";
+import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import UserContext from '../../context/user'
+// import useUser from '../../hooks/useUser'
+import {
+  addToFav2,
+  addToConnect,
+  checkFav,
+  addToFav,
+  removeFav,
+} from '../../utils/firebase'
+import { FaHeart, FaHourglassHalf } from 'react-icons/fa'
 
 const UserCard = ({ item }) => {
-  const { user } = useContext(UserContext);
-  const userData = useUser(user.uid);
-  const { uid } = user;
+  const { user } = useContext(UserContext)
+  // const userData = useUser(user.uid);
+  const [isLoading, setIsLoading] = useState(true)
+  const [isHeart, setIsHeart] = useState(false)
+  const { uid } = user
+
+  const handleClick = async () => {
+    setIsLoading(true)
+    setIsHeart((prev) => !prev)
+    if (!isHeart) {
+      await addToFav(
+        uid,
+        item.userId,
+        item.name,
+        item.profileUrl,
+        item.age,
+        item.city,
+        item.employement
+      )
+    } else {
+      await removeFav(uid, item.userId)
+    }
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await checkFav(uid, item.userId)
+      setIsHeart(result)
+      setIsLoading(false)
+    }
+    fetchData()
+  }, [])
 
   return (
-    <div className="searchUserCard">
-      <img src={item.profileUrl} alt="user pic" />
+    <div className='searchUserCard'>
+      {console.log('Before click', isHeart)}
+      <button disabled={isLoading} onClick={handleClick} className='heart'>
+        {isLoading ? (
+          <FaHourglassHalf color='grey' />
+        ) : (
+          <FaHeart color={isHeart ? 'red' : 'grey'} />
+        )}
+      </button>
+      <img src={item.profileUrl} alt='user pic' />
       <h2>{item.name}</h2>
       <p>
         Age : {item.age} | City : {item.city}
@@ -19,7 +64,7 @@ const UserCard = ({ item }) => {
         Employement : {item.employement}
       </p>
 
-      <div className="btnDiv">
+      {/* <div className="btnDiv">
         <button
           onClick={() =>
             addToConnect(
@@ -42,12 +87,12 @@ const UserCard = ({ item }) => {
         >
           Add to Favorite
         </button>
-      </div>
-      <Link to={`/profile/${item.userId}`} className="viewBtn">
+      </div> */}
+      <Link to={`/profile/${item.userId}`} className='viewBtn'>
         View Profile
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default UserCard;
+export default UserCard

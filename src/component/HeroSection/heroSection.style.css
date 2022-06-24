@@ -49,7 +49,8 @@ h3.formHeader {
   color: white;
 }
 h3.formHeader span {
-  color: red;
+  color: #ff0000;
+  font-weight: 900;
 }
 
 p.headerTag {
@@ -115,12 +116,22 @@ input {
 .nameAgeForm div.form-group {
   width: 35%;
 }*/
-.nameAgeForm .form-group:nth-child(2) {
-  width: 72%;
+
+.twoCol {
+  display: flex;
+  gap: 10px;
 }
 
-.rightSide div.form-group {
-  width: auto;
+.twoCol > * {
+  width: 50%;
+}
+
+.nameAgeForm .form-group:nth-child(2) {
+  width: 67%;
+}
+.formCard .btnGetstarted {
+  margin-top: 5px;
+  display: inline-block;
 }
 
 .formCard p {
@@ -138,6 +149,10 @@ label span {
 @media screen and (max-width: 500px) {
   .heroSection {
     margin-top: 0;
+  }
+
+  h3.formHeader span {
+    color: #781f1f;
   }
 
   .heroSection .rightSide,
@@ -167,8 +182,10 @@ label span {
     background-color: #8f8f8f38;
     /* color: black; */
   }
+
   input,
-  .css-1s2u09g-control {
+  .css-1s2u09g-control,
+  .formCard select {
     background-color: #7f7a7a61 !important;
     border-color: rgb(118, 118, 118) !important;
   }

@@ -80,6 +80,11 @@ input {
   border-radius: 4px;
 }
 
+.loader {
+  width: 100px;
+  margin: 40px auto;
+}
+
 @media screen and (max-width: 500px) {
   .container {
     width: 95%;

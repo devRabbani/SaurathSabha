@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
-import useUser from '../../hooks/useUser'
-import { fetchAdditionalData, getAddionalData } from '../../utils/firebase'
+import { getDataByUid } from '../../utils/firebase'
 import {
   FaFacebook,
   FaTwitter,
@@ -12,9 +10,12 @@ import {
   FaEnvelope,
 } from 'react-icons/fa'
 import './profile.style.css'
+import Loader from '../../component/Loader'
 
 const Profile = () => {
   const [additionalData, setAdditionalData] = useState()
+  const [profileData, setProfileData] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const [menuPage, setMenuPage] = useState(0)
 
   const menuTitles = ['Education and Carrer', 'Family Background', 'About Me']
@@ -22,24 +23,29 @@ const Profile = () => {
   const uid = useParams().uid
 
   const { user } = useContext(UserContext)
-  // const [profileData, setProfileData] = useState(null)
-  const profileData = useUser()
+
+  // const profileData = useUser(uid)
   const isOwn = uid === user?.uid
 
   const fetchData = async () => {
-    const result = await fetchAdditionalData(uid)
-    setAdditionalData(result)
+    setIsLoading(true)
+    const userdata = await getDataByUid(uid, 'users')
+    setProfileData(userdata)
+    const additional = await getDataByUid(uid, 'additional')
+    setAdditionalData(additional)
+    setIsLoading(false)
+    console.log(additional, userdata)
   }
 
   const renderInfoPage = () => {
     if (menuPage === 0) {
       return (
         <p>
-          <strong>Qualification : </strong> {additionalData.highestQual} ,
+          <strong>Qualification : </strong> {additionalData.highestQual}
           <br />
-          <strong>Completion Year : </strong> {additionalData.yearComplete} ,
+          <strong>Completion Year : </strong> {additionalData.yearComplete}
           <br />
-          <strong>Current Job : </strong> {additionalData.currentJob} ,
+          <strong>Current Job : </strong> {additionalData.currentJob}
           <br />
           <strong>Estimated Annual Income : </strong> {additionalData.income}
           /-
@@ -48,21 +54,34 @@ const Profile = () => {
     } else if (menuPage === 1) {
       return (
         <p>
-          <strong>Father Name : </strong> {additionalData.fatherName},
+          <strong>Father Name : </strong> {additionalData.fatherName}
           <br />
           <strong>Father Profession : </strong>{' '}
-          {additionalData.fatherProfession},
+          {additionalData.fatherProfession}
           <br />
-          <strong>Grandfather Name : </strong> {additionalData.grandFather} ,
+          <strong>Grandfather Name : </strong> {additionalData.grandFather}
           <br />
-          <strong>Gautra : </strong> {additionalData.gautra} ,
+          <strong>Gautra : </strong> {additionalData.gautra}
           <br />
-          <strong>Maul : </strong> {additionalData.maul} ,
+          <strong>Maul : </strong> {additionalData.maul}
           <br />
-          <strong>Employement : </strong> {profileData.employement} ,
+          <strong>Employement : </strong> {profileData.employement}
           <br />
           <strong>Gender : </strong> {profileData.gender}
           <br />
+          <strong>Sibblings : </strong>
+          <br />
+          {additionalData.siblings.map((item, i) => (
+            <span key={i}>
+              <span className='sibbNo'>sibling {i + 1} : </span>
+              <span className='sibbAge'>
+                {item.age} {item.relation}
+              </span>{' '}
+              ---&nbsp;
+              {item.status}
+              <br />
+            </span>
+          ))}
         </p>
       )
     } else {
@@ -72,21 +91,21 @@ const Profile = () => {
           <h2 className='aboutBioH2'>Hobies and Others :</h2>
           <p>
             <strong>Hobbies : </strong>
-            {additionalData.hobbies},
+            {additionalData.hobbies}
             <br />
             <strong>Do you smoke ? : </strong>{' '}
-            {additionalData.isSmoker?.toUpperCase()} ,
+            {additionalData.isSmoker?.toUpperCase()}
             <br />
             <strong>Are you alcoholic ? : </strong>{' '}
-            {additionalData.isAlcoholic?.toUpperCase()} ,
+            {additionalData.isAlcoholic?.toUpperCase()}
             <br />
           </p>
 
-          {(additionalData.videolink === '' ||
-            additionalData.facebook === '' ||
-            additionalData.instagram === '' ||
-            additionalData.linkedin === '' ||
-            additionalData.twitter === '' ||
+          {(additionalData.videolink !== '' ||
+            additionalData.facebook !== '' ||
+            additionalData.instagram !== '' ||
+            additionalData.linkedin !== '' ||
+            additionalData.twitter !== '' ||
             additionalData.email) && (
             <h2 className='aboutBioH2'>Social Links :</h2>
           )}
@@ -167,28 +186,26 @@ const Profile = () => {
 
   return (
     <div className='profile'>
-      {console.log(
-        `Profile Data ${profileData},additional data ${additionalData}`
-      )}
-      <div className='container'>
+      <div className='pageBody container'>
         <h1 className='pageHeading'>{isOwn ? 'My Profile' : 'Profile'}</h1>
-        {profileData && (
+        {/* <Loader /> */}
+        {profileData && !isLoading ? (
           <div className='mainProfileCard'>
             <div className='profileWrapper'>
               <img src={profileData.profileUrl} alt='Profile img' />
               <div className='rightSide'>
                 <p>
-                  <strong>NAME : </strong> {profileData.name} ,
+                  <strong>NAME : </strong> {profileData.name}
                   <br />
-                  <strong>Age : </strong> {profileData.age} ,
+                  <strong>Age : </strong> {profileData.age}
                   <br />
-                  <strong>Profile For : </strong> {profileData.profileFor} ,
+                  <strong>Profile For : </strong> {profileData.profileFor}
                   <br />
-                  <strong>City : </strong> {profileData.city} ,
+                  <strong>City : </strong> {profileData.city}
                   <br />
-                  <strong>Email : </strong> {profileData.email} ,
+                  <strong>Email : </strong> {profileData.email}
                   <br />
-                  <strong>Employement : </strong> {profileData.employement} ,
+                  <strong>Employement : </strong> {profileData.employement}
                   <br />
                   <strong>Gender : </strong> {profileData.gender}
                   <br />
@@ -232,6 +249,8 @@ const Profile = () => {
               )}
             </div>
           </div>
+        ) : (
+          <Loader />
         )}
       </div>
     </div>

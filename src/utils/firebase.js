@@ -9,27 +9,39 @@ export const isUserExist = async (number) => {
   return result.docs.length !== 0
 }
 
-export const getUserByUid = async (uid) => {
-  const result = await firebaseApp
-    .firestore()
-    .collection('users')
-    .where('userId', '==', uid)
-    .get()
-  console.log(result)
-  const user = result.docs.map((item) => item.data())
-
-  return user
+// Get single Data
+export const getDataByUid = async (uid, col) => {
+  const result = await firebaseApp.firestore().collection(col).doc(uid).get()
+  if (result.exists) {
+    return result.data()
+  }
 }
 
-export const getAddionalData = async (uid) => {
-  const result = await firebaseApp
-    .firestore()
-    .collection('additionalData')
-    .where('userId', '==', uid)
-    .get()
-  const data = result.docs.map((item) => item.data())
-  return data
-}
+// export const getUserByUid = async (uid) => {
+//   const result = await firebaseApp
+//     .firestore()
+//     .collection('users')
+//     .where('userId', '==', uid)
+//     .limit(1)
+//     .get()
+
+//   if (!result.empty) {
+//     return result.docs[0].data()
+//   }
+// }
+
+// export const getAddionalData = async (uid) => {
+//   const result = await firebaseApp
+//     .firestore()
+//     .collection('additionalData')
+//     .where('userId', '==', uid)
+//     .limit(1)
+//     .get()
+
+//   if (!result.empty) {
+//     return result.docs[0].data()
+//   }
+// }
 
 // export const addToFav = (uid, favUid) => {
 //   firebaseApp
@@ -46,27 +58,27 @@ export const getAddionalData = async (uid) => {
 //     });
 // };
 
-export const addToFav2 = async (uid, favuid, name, img) => {
-  firebaseApp
-    .firestore()
-    .collection('favourite')
-    .doc(uid)
-    .set(
-      {
-        data: FieldValue.arrayUnion({
-          favuid,
-          name,
-          img,
-        }),
-      },
-      { merge: true }
-    )
-    .then((data) => {
-      alert('Done')
-    })
+// export const addToFav2 = async (uid, favuid, name, img) => {
+//   firebaseApp
+//     .firestore()
+//     .collection('favourite')
+//     .doc(uid)
+//     .set(
+//       {
+//         data: FieldValue.arrayUnion({
+//           favuid,
+//           name,
+//           img,
+//         }),
+//       },
+//       { merge: true }
+//     )
+//     .then((data) => {
+//       alert('Done')
+//     })
 
-  // console.log(result.exists);
-}
+//   // console.log(result.exists);
+// }
 
 export const fetchConnectionData = async (uid, type) => {
   const query = await firebaseApp.firestore().collection(type).doc(uid).get()
@@ -78,18 +90,18 @@ export const fetchConnectionData = async (uid, type) => {
   }
 }
 
-export const removeFav = async (uid, favuid) => {
-  const data = await fetchConnectionData(uid, 'favourite')
-  console.log(data)
+// export const removeFav = async (uid, favuid) => {
+//   const data = await fetchConnectionData(uid, 'favourite')
+//   console.log(data)
 
-  firebaseApp
-    .firestore()
-    .collection('favourite')
-    .doc(uid)
-    .update({
-      data: data.filter((item) => item.favuid !== favuid),
-    })
-}
+//   firebaseApp
+//     .firestore()
+//     .collection('favourite')
+//     .doc(uid)
+//     .update({
+//       data: data.filter((item) => item.favuid !== favuid),
+//     })
+// }
 
 export const removeRequest = async (uid, deleteId) => {
   const newdata1 = await fetchConnectionData(uid, 'requested')
@@ -240,40 +252,72 @@ export const registerUser = async (data) => {
     userId,
     number,
   } = data
-
-  await firebaseApp.firestore().collection('users').add({
+  let profileUrl = ''
+  if (gender === 'male') {
+    profileUrl = '/male.png'
+  } else {
+    profileUrl = '/male.png'
+  }
+  await firebaseApp.firestore().collection('users').doc(userId).set({
     userId,
     number,
     name,
-    city: city.toLowerCase(),
+    city: city.trim().toLowerCase(),
     age,
     gender,
     employement,
     profileFor,
-    profileUrl: ``,
-    email: email.toLowerCase(),
+    profileUrl,
+    plan: 'basic',
+    email: email.trim().toLowerCase(),
     dateCreated: Date.now(),
-    connection: [],
-    favourite: [],
+    // connection: [],
+    // favourite: [],
   })
+
   await firebaseApp.auth().currentUser.updateProfile({
     displayName: name,
   })
-  await firebaseApp.firestore().collection('requsted').add({
-    userId,
-    request: [],
-    sent: [],
-  })
+  // await firebaseApp.firestore().collection('requsted').add({
+  //   userId,
+  //   request: [],
+  //   sent: [],
+  // })
 }
 
 export const addAdditionalData = async (uid, data) => {
+  let isSocial = ''
+  let isVideo = ''
+  const { twitter, instagram, facebook, linkedin, videolink } = data
+  if (
+    twitter !== '' ||
+    instagram !== '' ||
+    facebook !== '' ||
+    linkedin !== ''
+  ) {
+    isSocial = 'yes'
+  }
+  if (videolink !== '') {
+    isVideo = 'yes'
+  }
+
   await firebaseApp
     .firestore()
     .collection('additional')
-    .add({
-      ...data,
-      userId: uid,
+    .doc(uid)
+    .set(
+      {
+        ...data,
+        userId: uid,
+      },
+      { merge: true }
+    )
+  if (isSocial || isVideo) {
+    await firebaseApp.firestore().collection('users').doc(uid).update({
+      isSocial,
+      isVideo,
     })
+  }
 }
 
 export const uploadProfile = async (uid, file) => {
@@ -295,53 +339,34 @@ export const uploadProfile = async (uid, file) => {
 }
 
 export const updateProfilePic = async (uid, url) => {
-  const result = await firebaseApp
-    .firestore()
-    .collection('users')
-    .where('userId', '==', uid)
-    .get()
-
-  if (!result.empty) {
-    result.docs[0].ref.update({
-      profileUrl: url,
-    })
-  }
+  await firebaseApp.firestore().collection('users').doc(uid).update({
+    profileUrl: url,
+  })
 }
 
-export const fetchAdditionalData = async (uid) => {
-  const result = await firebaseApp
-    .firestore()
-    .collection('additional')
-    .where('userId', '==', uid)
-    .get()
+// export const fetchAdditionalData = async (uid) => {
+//   const result = await firebaseApp
+//     .firestore()
+//     .collection('additional')
+//     .where('userId', '==', uid)
+//     .get()
 
-  if (!result.empty) {
-    return result.docs[0].data()
-  } else {
-    return
-  }
-}
+//   if (!result.empty) {
+//     return result.docs[0].data()
+//   } else {
+//     return
+//   }
+// }
 
 export const addAdditionalFile = async (uid, url) => {
-  const result = await firebaseApp
-    .firestore()
-    .collection('users')
-    .where('userId', '==', uid)
-    .get()
-
-  if (!result.empty) {
-    result.docs[0].ref.set(
-      {
-        additonalFileUrl: url,
-      },
-      {
-        merge: true,
-      }
-    )
-    console.log('Update Done')
-  } else {
-    console.log('Not found any uid')
-  }
+  await firebaseApp.firestore().collection('users').doc(uid).set(
+    {
+      additonalFileUrl: url,
+    },
+    {
+      merge: true,
+    }
+  )
 }
 
 export const getProfilePic = async (uid) => {
@@ -433,6 +458,69 @@ export const fetchFilterData = async (
       .map((item) => item.data())
       .filter((item) => item.userId !== uid)
     return result
+  } else {
+    return []
+  }
+}
+
+// Check Fav
+export const checkFav = async (userUid, targetUid) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('users')
+    .doc(userUid)
+    .collection('favourite')
+    .doc(targetUid)
+    .get()
+  return result.exists
+}
+export const addToFav = async (
+  userId,
+  targetUid,
+  name,
+  profileUrl,
+  age,
+  city,
+  employement
+) => {
+  await firebaseApp
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('favourite')
+    .doc(targetUid)
+    .set(
+      {
+        name,
+        profileUrl,
+        age,
+        city,
+        employement,
+      },
+      {
+        merge: true,
+      }
+    )
+}
+
+export const removeFav = async (userId, targetUid) => {
+  await firebaseApp
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('favourite')
+    .doc(targetUid)
+    .delete()
+}
+export const getFavList = async (userId) => {
+  const result = await firebaseApp
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('favourite')
+    .get()
+  if (!result.empty) {
+    return result.docs.map((item) => item.data())
   } else {
     return []
   }

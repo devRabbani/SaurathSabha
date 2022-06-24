@@ -32,18 +32,15 @@
 .service .aboutImg {
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.3);
 }
-.serviceHeader::before {
+.rightService .divHeader::after {
   content: ' ';
   height: 3px;
   display: block;
-
+  color: rgb(255, 255, 255);
   width: 160px;
   margin-bottom: 10px;
   background-color: blueviolet;
-}
-
-.serviceHeader {
-  color: rgb(255, 255, 255);
+  margin-left: -18px;
 }
 
 .servicePara {
@@ -55,10 +52,12 @@
   .rightService {
     width: 100%;
   }
-  .serviceHeader::before {
-    margin: 0 auto 10px;
+  .rightService .divHeader::after {
+    margin: 5px auto 10px;
   }
-
+  .serviceContainer {
+    min-height: auto;
+  }
   .service {
     position: relative;
     top: auto;
