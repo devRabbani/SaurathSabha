@@ -1,35 +1,36 @@
 import React, { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './nav.style.css'
-import logo from '../../assets/Asset 1@2x.png'
+import logo from '../../assets/saurathsabha.png'
 import UserContext from '../../context/user'
 import FirebaseContext from '../../context/firebase'
 import {
-  FaAngleDown,
   FaBell,
   FaChevronDown,
-  FaChevronUp,
-  FaRegBell,
   FaUserCircle,
   FaRupeeSign,
   FaSearch,
-  FaHouseUser,
   FaHeart,
   FaHome,
   FaUserAlt,
   FaSignOutAlt,
   FaSignInAlt,
+  FaTimes,
+  FaBars,
 } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
 
 const Nav = ({ user, setIsModal }) => {
-  const history = useHistory()
   const { firebaseApp } = useContext(FirebaseContext)
   const [isMenu, setIsMenu] = useState(false)
+  const [hamMenu, setHamMenu] = useState(false)
 
-  const handleMenu = () => {
-    setIsMenu((prev) => !prev)
+  const handleMenuOff = (e) => {
+    if (
+      e.target.classList.contains('nav-item') ||
+      e.target.classList.contains('btnLogout')
+    ) {
+      setHamMenu(false)
+    }
   }
 
   return (
@@ -39,6 +40,9 @@ const Nav = ({ user, setIsModal }) => {
           <img src={logo} alt='Logo' />
 
           {/* <NavLink to='/'>SaurathSabha</NavLink> */}
+        </div>
+        <div onClick={() => setHamMenu((prev) => !prev)} className='menuBar'>
+          {hamMenu ? <FaTimes /> : <FaBars />}
         </div>
         <ul className='nav'>
           <li>
@@ -77,7 +81,10 @@ const Nav = ({ user, setIsModal }) => {
 
         {user ? (
           <div className='navUser'>
-            <div className='navUserDiv' onClick={handleMenu}>
+            <div
+              className='navUserDiv'
+              onClick={() => setIsMenu((prev) => !prev)}
+            >
               <FaUserCircle />
               <p>
                 {user.displayName?.length > 0 ? user.displayName : 'User Name'}
@@ -87,7 +94,7 @@ const Nav = ({ user, setIsModal }) => {
               <FaChevronDown className={isMenu && 'tick'} />
             </div>
             {isMenu && (
-              <div className='overlayMenu'>
+              <div onClick={() => setIsMenu(false)} className='overlayMenu'>
                 <NavLink
                   activeClassName='bgActive'
                   to={`/profile/${user && user.uid}`}
@@ -116,6 +123,74 @@ const Nav = ({ user, setIsModal }) => {
           <button onClick={() => setIsModal(true)} className='btnNav'>
             <FaSignInAlt /> Login
           </button>
+        )}
+        {hamMenu && (
+          <div className='mobileMenu' onClick={handleMenuOff}>
+            <NavLink
+              className='nav-item'
+              exact
+              activeClassName='bottomBorder'
+              to='/'
+            >
+              <FaHome /> Home
+            </NavLink>
+            <NavLink
+              exact
+              activeClassName='bottomBorder'
+              className='nav-item'
+              to='/search'
+            >
+              <FaSearch /> Search
+            </NavLink>
+
+            <NavLink
+              exact
+              activeClassName='bottomBorder'
+              className='nav-item'
+              to='/plans'
+            >
+              <FaRupeeSign /> Plans
+            </NavLink>
+
+            {user ? (
+              <>
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/profile/${user && user.uid}`}
+                >
+                  <FaUserAlt /> My Profile
+                </NavLink>
+
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/notification`}
+                >
+                  <FaBell /> Notification
+                </NavLink>
+
+                <NavLink
+                  activeClassName='bottomBorder'
+                  className='nav-item'
+                  to={`/favourite`}
+                >
+                  <FaHeart /> Favourite
+                </NavLink>
+
+                <div
+                  className='btnLogout'
+                  onClick={() => firebaseApp.auth().signOut()}
+                >
+                  <FaSignOutAlt /> Logout
+                </div>
+              </>
+            ) : (
+              <button onClick={() => setIsModal(true)} className='btnNav'>
+                <FaSignInAlt /> Login
+              </button>
+            )}
+          </div>
         )}
       </div>
     </nav>

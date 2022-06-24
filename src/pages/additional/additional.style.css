@@ -1,7 +1,19 @@
 .additional form {
   width: 48%;
 }
+.additional .formHorizontal.triple {
+  align-items: center;
+}
+.additional .formHorizontal.triple select {
+  width: 30%;
+}
 
+.removeSibbs {
+  font-size: 2rem;
+  opacity: 0.6;
+  margin-bottom: -4px;
+  cursor: pointer;
+}
 .additional input,
 .additional select,
 .additional textarea {
@@ -10,7 +22,7 @@
 
 .additional {
   background-color: cornsilk;
-  padding: 60px 0;
+  padding: 6px 0 60px;
 }
 
 .additionalWrapper {
@@ -23,10 +35,9 @@
 }
 .additionalH1 {
   font-size: 2.4rem;
-  color: #3965d6;
   color: blueviolet;
-  margin-top: 25px;
-  margin-top: 60px;
+  margin-top: 50px;
+  text-align: center;
 }
 
 .progress {
@@ -48,6 +59,14 @@
   background-color: #3434c6;
   display: block;
 }
+
+.additional .btn.sibb {
+  padding: 9.5px 17px;
+  margin: 7px 0 15px;
+  background-color: #b2801b;
+  box-shadow: 0 0 19px rgba(0, 0, 0, 0.2);
+}
+
 .additional .btn.continue,
 .additional .btn.finish {
   width: 100%;
@@ -73,6 +92,9 @@
 .additional .btn.skip:hover {
   background-color: #d0d0d0;
   color: #626060;
+}
+.additional .btn.sibb:hover {
+  background-color: #815807;
 }
 
 .additional .btnDiv .btn {
@@ -210,4 +232,30 @@ form.profileFileDiv {
 .loadingEditing {
   font-size: 2rem;
   margin-top: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .additional form {
+    width: 90%;
+  }
+  .additional .formHorizontal.triple select {
+    width: 26%;
+  }
+  .additional .formHorizontal.triple select:nth-child(3) {
+    width: 34%;
+  }
+  .additional .formHorizontal.habbit {
+    flex-direction: column;
+  }
+  .additional .formHorizontal.habbit > * {
+    width: 100%;
+  }
+  .uploadProfileP {
+    width: 95%;
+  }
+  form.profileFileDiv {
+    display: flex;
+
+    width: 95%;
+  }
 }

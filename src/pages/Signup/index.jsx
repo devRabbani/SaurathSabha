@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './signup.style.css'
-import img from '../../assets/wedding.svg'
-import { Link, useHistory } from 'react-router-dom'
-import FirebaseContext from '../../context/firebase'
-import { MdModeEdit } from 'react-icons/md'
-import { isUserExist, registerUser } from '../../utils/firebase'
-import UserContext from '../../context/user'
+
+import { registerUser } from '../../utils/firebase'
+import useTop from '../../hooks/useTop'
 
 const Signup = ({ location, history }) => {
+  useTop()
   const { phoneNo, uid } = location.state
 
   // For Testing
@@ -61,6 +59,8 @@ const Signup = ({ location, history }) => {
           employement: '',
           profileFor: '',
           gender: '',
+          userId: uid,
+          number: phoneNo,
         })
         setError(error.message)
       })

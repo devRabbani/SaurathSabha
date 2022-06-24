@@ -4,6 +4,7 @@ import FirebaseContext from '../context/firebase'
 export default function useAuthListener() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')))
   const { firebaseApp } = useContext(FirebaseContext)
+
   useEffect(() => {
     const listner = firebaseApp.auth().onAuthStateChanged((authUser) => {
       if (authUser) {

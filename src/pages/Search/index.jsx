@@ -1,30 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import SearchCardList from '../../component/SearchCardList'
-import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import { fetchAllUsers, fetchFilterData } from '../../utils/firebase'
 import './search.style.css'
 
-const Search = ({ location }) => {
-  const { firebaseApp } = useContext(FirebaseContext)
+const Search = () => {
   const [data, setData] = useState([])
-  const [filterData, setFilterData] = useState([])
+  const [filterData, setFilterData] = useState(data)
   const [searchName, setSearchName] = useState('')
   const [isBtnLoading, setIsBtnLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  const location = useLocation()
+  const redirState = location?.state
+
   const [filters, setFilters] = useState({
-    age: '',
-    employement: '',
-    profileFor: '',
-    city: '',
-    gender: '',
+    age: redirState?.age || '',
+    employement: redirState?.emp || '',
+    profileFor: redirState?.pfor || '',
+    city: redirState?.city || '',
+    gender: redirState?.gender || '',
+    isSocial: redirState?.isSocial || '',
+    isVideo: '',
   })
 
-  const { age, employement, profileFor, city, gender } = filters
+  const { age, employement, profileFor, city, gender, isSocial, isVideo } =
+    filters
 
   const { user } = useContext(UserContext)
   // const searchString = location.state
+
+  const fetchData = async () => {
+    const result = await fetchAllUsers(user?.uid)
+    setIsLoading(false)
+    setData(result)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -50,10 +61,12 @@ const Search = ({ location }) => {
     try {
       const result = await fetchFilterData(
         age,
-        city,
+        city.trim().toLowerCase(),
         employement,
         profileFor,
         gender,
+        isSocial,
+        isVideo,
         user?.uid
       )
       setData(result)
@@ -63,20 +76,44 @@ const Search = ({ location }) => {
 
     setIsBtnLoading(false)
   }
-  const handleSearch = async () => {
+
+  const handleReset = () => {
+    try {
+      setFilters({
+        age: '',
+        employement: '',
+        profileFor: '',
+        city: '',
+        gender: '',
+        isSocial: '',
+        isVideo: '',
+      })
+      fetchData()
+    } catch (error) {
+      console.log('Something Went Wrong', error)
+    }
+  }
+
+  const handleSearch = () => {
     setIsBtnLoading(true)
-    await searchByName()
+    searchByName()
     setIsBtnLoading(false)
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchAllUsers(user?.uid)
-      setIsLoading(false)
-      setData(result)
-    }
     try {
-      fetchData()
+      if (
+        redirState?.age ||
+        redirState?.emp ||
+        redirState?.pfor ||
+        redirState?.city ||
+        redirState?.gender ||
+        redirState?.isSocial
+      ) {
+        handleFilter()
+      } else {
+        fetchData()
+      }
     } catch (error) {
       console.log('Something Went Wrong', error)
     }
@@ -94,16 +131,17 @@ const Search = ({ location }) => {
           </select>
           <select onChange={handleChange} value={age} name='age'>
             <option value=''>Select Age Group</option>
-            <option value='20-30'>20-30</option>
+            <option value='21-30'>21-30</option>
             <option value='30-40'>30-40</option>
             <option value='40-50'>40-50</option>
           </select>
-          <select onChange={handleChange} value={city} name='city'>
-            <option value=''>Select City</option>
-            <option value='bangalore'>Bangalore</option>
-            <option value='patna'>Patna</option>
-            <option value='dhubri'>Dhubri</option>
-          </select>
+          <input
+            onChange={handleChange}
+            placeholder='Type City Name'
+            value={city}
+            name='city'
+          />
+
           <select onChange={handleChange} value={profileFor} name='profileFor'>
             <option value=''>Select Profile</option>
             <option value='myself'>Self</option>
@@ -119,13 +157,26 @@ const Search = ({ location }) => {
             <option value='selfemployeed'>Self Employed</option>
             <option value='privatejobs'>Private Jobs</option>
           </select>
-          <button
-            onClick={handleFilter}
-            disabled={isBtnLoading}
-            className='btnSearch'
-          >
-            {isBtnLoading ? 'Loading' : 'Filter'}
-          </button>
+          <select onChange={handleChange} value={isSocial} name='isSocial'>
+            <option value=''>With Social Links</option>
+            <option value='yes'>Yes</option>
+          </select>
+          <select onChange={handleChange} value={isVideo} name='isVideo'>
+            <option value=''>With Video Links</option>
+            <option value='yes'>Yes</option>
+          </select>
+          <div className='filterBtns'>
+            <button
+              onClick={handleFilter}
+              disabled={isBtnLoading}
+              className='btnSearch'
+            >
+              {isBtnLoading ? 'Loading' : 'Filter'}
+            </button>
+            <button onClick={handleReset} className='btnReset'>
+              Reset
+            </button>
+          </div>
         </div>
         <div className='searchDiv'>
           <input

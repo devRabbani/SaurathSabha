@@ -1,23 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import About from '../../component/About'
-import Featured from '../../component/Featured'
 import HeroSection from '../../component/HeroSection'
 import LoginModal from '../../component/LoginModal'
 import Modal from '../../component/Modal'
 import PlanSection from '../../component/planSection'
 import Services from '../../component/Services'
-import Testimony from '../../component/Testimony'
 import TestimonyGrid from '../../component/TestimonyGrid'
 import WhyUs from '../../component/WhyUs'
 import UserContext from '../../context/user'
-import { getUserByUid } from '../../utils/firebase'
+import useTop from '../../hooks/useTop'
+import './homepage.style.css'
 
 const HomePage = ({ isModal, setIsModal }) => {
+  useTop()
+
   const { user } = useContext(UserContext)
   const location = useLocation()
   const history = useHistory()
+
   useEffect(() => {
     if (isModal) {
       document.body.style.overflowY = 'hidden'
@@ -41,10 +43,11 @@ const HomePage = ({ isModal, setIsModal }) => {
   return (
     <>
       <HeroSection />
-      <Featured />
+      <WhyUs />
+      {/* <Featured /> */}
       <About />
       <Services />
-      <WhyUs />
+
       <TestimonyGrid />
       <PlanSection />
       {/* <Testimony /> */}

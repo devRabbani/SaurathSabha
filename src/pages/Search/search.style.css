@@ -5,20 +5,47 @@
   align-items: center;
   gap: 10px;
   margin: 20px auto;
+  flex-wrap: wrap;
+}
+.filterBtns {
+  display: flex;
+  gap: 10px;
 }
 
-.filterWrapper select {
+.filterWrapper select,
+.filterWrapper input {
   padding: 8px 20px;
   font-size: 1.7rem;
   opacity: 0.7;
   cursor: pointer;
+}
+.searchWrapper input {
+  background-color: transparent !important;
+}
+
+.filterWrapper input::placeholder {
+  font-size: 1.7rem;
+}
+
+.filterWrapper input {
+  max-width: 200px;
+}
+
+.filterWrapper input:focus {
+  background-color: transparent;
 }
 
 .searchDiv p {
   font-size: 1.4rem;
 }
 
-.btnSearch {
+.searchDiv {
+  border-top: 1px solid rgb(182, 182, 182);
+  padding-top: 20px;
+}
+
+.btnSearch,
+.btnReset {
   padding: 8px 0;
   background-color: rgb(55, 9, 221);
   border: none;
@@ -29,6 +56,16 @@
   border-bottom: 2px solid rgb(0, 0, 161);
   cursor: pointer;
   transition: all 0.3s;
+}
+
+.btnReset {
+  width: 80px;
+  background-color: rgb(188, 13, 13);
+  border-bottom: 2px solid rgb(101, 0, 20);
+}
+
+.btnReset:hover {
+  background-color: rgb(117, 6, 6);
 }
 
 .btnSearch:hover {
@@ -48,4 +85,29 @@
   margin-top: 70px;
   color: brown;
   text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .filterWrapper select {
+    padding: 8px 10px;
+    font-size: 1.2rem;
+  }
+
+  .filterWrapper,
+  .searchDiv {
+    display: flex;
+  }
+
+  .searchDiv {
+    flex-wrap: nowrap;
+  }
+  .filterWrapper > * {
+    width: 47%;
+  }
+  .filterWrapper input {
+    padding: 8px;
+  }
+  .filterWrapper input::placeholder {
+    font-size: 1.2rem !important;
+  }
 }
